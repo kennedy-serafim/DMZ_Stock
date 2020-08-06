@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 /**
  * Classe de configurações do sistema padrão
  *
- * @author Berlim
+ * @author Kennedy Melvin Serafim
  */
 public abstract class SystemMessage {
 
@@ -14,11 +14,6 @@ public abstract class SystemMessage {
      * Mensagem de contacto do suporte técnico
      */
     public static final String SUPPORT_TECH = "Se o problema persistir contacte o Suporte Técnico.";
-
-    /**
-     * Nome Padrão da Clínica
-     */
-    public static final String CLINIC_NAME = "Clínica Médica Geral";
 
     /**
      * Cor Secundára do Sistema
@@ -31,11 +26,6 @@ public abstract class SystemMessage {
      * Cor Principal do Sistema
      */
     public static final String COLOR_PRIMARY = "#1A768D";
-
-    /**
-     * Cor padrão do botão sair do Sistema
-     */
-    public static final String COLOR_BUTTON_EXIT = "#FF3300";
 
     /**
      * Image padrão do Sistema
