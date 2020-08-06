@@ -93,8 +93,13 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -883,6 +888,19 @@ public class Dashboard extends javax.swing.JFrame {
         jMenu1.setText("Funcionário");
         jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMenu1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+
+        jMenuItem4.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+        jMenuItem4.setForeground(new java.awt.Color(26, 118, 141));
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/collaborator-24.png"))); // NOI18N
+        jMenuItem4.setText("Funcionários");
+        jMenu1.add(jMenuItem4);
+
+        jMenuItem5.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+        jMenuItem5.setForeground(new java.awt.Color(26, 118, 141));
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/administrator-24.png"))); // NOI18N
+        jMenuItem5.setText("Usuários do Sistema");
+        jMenu1.add(jMenuItem5);
+
         jMenuBar1.add(jMenu1);
 
         jMenu3.setForeground(new java.awt.Color(26, 118, 141));
@@ -897,6 +915,35 @@ public class Dashboard extends javax.swing.JFrame {
         jMenu4.setText("Relatórios");
         jMenu4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMenu4.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+        jMenuItem1.setForeground(new java.awt.Color(26, 118, 141));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/box-5-24.png"))); // NOI18N
+        jMenuItem1.setText("Produtos");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem1);
+
+        jMenuItem2.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+        jMenuItem2.setForeground(new java.awt.Color(26, 118, 141));
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/box-3-24.png"))); // NOI18N
+        jMenuItem2.setText("Entradas");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem2);
+
+        jMenuItem3.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+        jMenuItem3.setForeground(new java.awt.Color(26, 118, 141));
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/filled-box-24.png"))); // NOI18N
+        jMenuItem3.setText("Saídas");
+        jMenu4.add(jMenuItem3);
+
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -1003,6 +1050,14 @@ public class Dashboard extends javax.swing.JFrame {
         panel4.setBackground(Color.decode(SystemMessage.COLOR_PRIMARY));
     }//GEN-LAST:event_panel4MouseExited
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1069,6 +1124,11 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
