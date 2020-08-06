@@ -29,7 +29,4 @@ public class Application {
         return properties;
     }
     
-    public static void main(String[] args) {
-        System.out.println(getProperties());
-    }
 }
