@@ -368,6 +368,7 @@ public class Index extends javax.swing.JFrame {
     private void validarAcesso() {
         lblPassWrong.setVisible(false);
         lblUserWrong.setVisible(false);
+        
         if (tentativaAcesso < 3) {
 
             String user = null;
@@ -377,9 +378,11 @@ public class Index extends javax.swing.JFrame {
 
             if (!(user.isEmpty() || pass.isEmpty())) {
                 long idUser = 0;
-                idUser = 0;
-                if (idUser > 0) {
+                idUser = 1;
+                
+                if (idUser > 0) { //
                     this.dispose();
+                    new Dashboard().setVisible(true);
 
                 } else {
                     tentativaAcesso++;

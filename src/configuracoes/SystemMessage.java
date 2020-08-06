@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
  *
  * @author Kennedy Melvin Serafim
  */
-public abstract class SystemMessage {
+public final class SystemMessage {
 
     /**
      * Mensagem de contacto do suporte técnico
