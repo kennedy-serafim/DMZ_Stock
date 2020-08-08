@@ -899,6 +899,11 @@ public class Dashboard extends javax.swing.JFrame {
         jMenuItem4.setForeground(new java.awt.Color(26, 118, 141));
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/collaborator-24.png"))); // NOI18N
         jMenuItem4.setText("Funcionários");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
@@ -1079,8 +1084,12 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3ActionPerformed
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
-        new Fornecedor(this, true).setVisible(true); 
+        new Fornecedor(this, true).setVisible(true);        
     }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        new CadastroFuncionarios(this, rootPaneCheckingEnabled).setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments

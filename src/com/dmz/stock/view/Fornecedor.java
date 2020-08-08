@@ -22,10 +22,9 @@ public class Fornecedor extends javax.swing.JDialog {
     private final String NUIT = "";
 
     /**
-     * Creates new form ViewFornecedor
-     *
+     * 
      * @param parent
-     * @param modal
+     * @param modal 
      */
     public Fornecedor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -84,7 +83,6 @@ public class Fornecedor extends javax.swing.JDialog {
         btnLimparCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cli_Master 1.1 - Fornecedores da Clínica");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -642,7 +640,7 @@ public class Fornecedor extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         this.setIconImage(new ImageIcon(getClass().
                 getResource(SystemMessage.IMAGE_URL)).getImage());
-        this.setTitle(SystemMessage.SYSTEM_NAME + " - Fornecedores dos Produtos em estoque");
+        this.setTitle(SystemMessage.SYSTEM_NAME + " - Fornecedores dos Produtos em Estoque");
 
         btnSair.setVisible(false);
         txtEmail.setDocument(new Expressoes.InternalClassEmail());
