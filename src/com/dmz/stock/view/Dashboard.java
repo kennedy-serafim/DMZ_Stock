@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  * @author seraf
  */
 public class Dashboard extends javax.swing.JFrame {
-
+    
     private int positionX, positionY;
 
     /**
@@ -409,9 +409,13 @@ public class Dashboard extends javax.swing.JFrame {
 
         jPanelEstatisticas.setBackground(new java.awt.Color(250, 250, 250));
 
+        jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
+
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel7.setBackground(new java.awt.Color(26, 118, 141));
+        jPanel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel16.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
@@ -523,6 +527,7 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel8.setBackground(new java.awt.Color(26, 118, 141));
+        jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel15.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -634,6 +639,7 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel9.setBackground(new java.awt.Color(26, 118, 141));
+        jPanel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel17.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
@@ -862,9 +868,9 @@ public class Dashboard extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -908,6 +914,16 @@ public class Dashboard extends javax.swing.JFrame {
         jMenu3.setText("Fornecedor");
         jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMenu3.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
         jMenu4.setForeground(new java.awt.Color(26, 118, 141));
@@ -967,7 +983,7 @@ public class Dashboard extends javax.swing.JFrame {
                 "Pretende fechar o Sistema?",
                 SystemMessage.SYSTEM_NAME,
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
+            
             System.exit(0);
         }
     }//GEN-LAST:event_lblSairMouseClicked
@@ -1057,6 +1073,14 @@ public class Dashboard extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        JOptionPane.showMessageDialog(jMenu1, "Fornecedor");        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        new Fornecedor(this, true).setVisible(true); 
+    }//GEN-LAST:event_jMenu3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -1165,7 +1189,7 @@ public class Dashboard extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void configuracoes() {
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(this);
         this.setIconImage(new ImageIcon(getClass().
                 getResource(SystemMessage.IMAGE_URL)).getImage());
         this.setTitle(SystemMessage.SYSTEM_NAME + " - Sistema de Gestão de Estoque");
