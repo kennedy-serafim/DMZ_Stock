@@ -72,8 +72,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         txtNumeroResidencia = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jComboBoxDepartamento = new javax.swing.JComboBox();
-        jComboBoxGrupoSanguineo = new javax.swing.JComboBox();
-        jLabel14 = new javax.swing.JLabel();
         asterisco1 = new javax.swing.JLabel();
         asterisco2 = new javax.swing.JLabel();
         asterisco3 = new javax.swing.JLabel();
@@ -364,15 +362,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
             }
         });
         jPanel3.add(jComboBoxDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 403, -1, 33));
-
-        jComboBoxGrupoSanguineo.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
-        jComboBoxGrupoSanguineo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleciona um grupo", "A+", "A -", "B+", "B -", "AB+", "AB -", "O -", "O+", "Desconhecido" }));
-        jPanel3.add(jComboBoxGrupoSanguineo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, 200, 33));
-
-        jLabel14.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Grupo Sanguineo:");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 370, -1, -1));
 
         asterisco1.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         asterisco1.setForeground(new java.awt.Color(255, 255, 255));
@@ -696,14 +685,12 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
     private com.toedter.calendar.JDateChooser jChooserDataNascimento;
     private javax.swing.JComboBox jComboBoxCidade;
     private javax.swing.JComboBox jComboBoxDepartamento;
-    private javax.swing.JComboBox jComboBoxGrupoSanguineo;
     private javax.swing.JComboBox jComboBoxPais;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
