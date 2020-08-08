@@ -36,8 +36,8 @@ public final class SystemMessage {
             + "\nLamentamos...!"
             + "\n\n\n"
             + "Queira por favor, Contactar o Suporte Técnico:"
-            + "\n" + Application.getProperties().getProperty("mail.user")
-            + "\n" + Application.getProperties().getProperty("phone.user");
+            + "\n" + Application.getProperties().getProperty("developer.email")
+            + "\n" + Application.getProperties().getProperty("developer.phone");
 
     /**
      *
