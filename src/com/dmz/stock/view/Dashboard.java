@@ -910,6 +910,11 @@ public class Dashboard extends javax.swing.JFrame {
         jMenuItem5.setForeground(new java.awt.Color(26, 118, 141));
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/administrator-24.png"))); // NOI18N
         jMenuItem5.setText("Usuários do Sistema");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
@@ -1090,6 +1095,10 @@ public class Dashboard extends javax.swing.JFrame {
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         new CadastroFuncionarios(this, rootPaneCheckingEnabled).setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        new CadastroUsuarios(this, rootPaneCheckingEnabled).setVisible(rootPaneCheckingEnabled);      // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments

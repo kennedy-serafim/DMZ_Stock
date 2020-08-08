@@ -108,6 +108,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/account-logout-16.png"))); // NOI18N
         jButton1.setText("Sair");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -119,6 +120,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         jButton2.setForeground(new java.awt.Color(0, 153, 204));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/add-user-3-24.png"))); // NOI18N
         jButton2.setText("Gravar");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -130,6 +132,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         jButton3.setForeground(new java.awt.Color(26, 118, 141));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/list-ingredients-24.png"))); // NOI18N
         jButton3.setText("Lista de Funcionários");
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);

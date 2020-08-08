@@ -149,6 +149,9 @@
                   <Image iconType="3" name="/image/account-logout-16.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Sair"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -169,6 +172,9 @@
                   <Image iconType="3" name="/image/add-user-3-24.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Gravar"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
@@ -189,6 +195,9 @@
                   <Image iconType="3" name="/image/list-ingredients-24.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Lista de Funcion&#xe1;rios"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
