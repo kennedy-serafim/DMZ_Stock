@@ -1158,7 +1158,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuProdutoActionPerformed
 
     private void jMenuSaidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSaidaMouseClicked
-        // TODO add your handling code here:
+        SaidaProduto.getInstance().setVisible(true);
     }//GEN-LAST:event_jMenuSaidaMouseClicked
 
     private void jMenuSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaidaActionPerformed
