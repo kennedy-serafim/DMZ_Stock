@@ -16,6 +16,7 @@ public class Produto {
     private int quantidadePorCaixa;
     private Date dataValidade;
     private Date dataEntrada;
+    private Date dataCompra;
     private double valorTotal;
     private double valorPorUnidade;
 
@@ -81,6 +82,14 @@ public class Produto {
 
     public void setDataEntrada(Date dataEntrada) {
         this.dataEntrada = dataEntrada;
+    }
+
+    public Date getDataCompra() {
+        return dataCompra;
+    }
+
+    public void setDataCompra(Date dataCompra) {
+        this.dataCompra = dataCompra;
     }
 
     public double getValorTotal() {

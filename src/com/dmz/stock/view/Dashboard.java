@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  * @author seraf
  */
 public class Dashboard extends javax.swing.JFrame {
-    
+
     private int positionX, positionY;
 
     /**
@@ -1042,7 +1042,7 @@ public class Dashboard extends javax.swing.JFrame {
                 "Pretende fechar o Sistema?",
                 SystemMessage.SYSTEM_NAME,
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            
+
             System.exit(0);
         }
     }//GEN-LAST:event_lblSairMouseClicked
@@ -1138,7 +1138,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuFornecedorActionPerformed
 
     private void jMenuFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuFornecedorMouseClicked
-        new Fornecedor(this, true).setVisible(true);        
+        new Fornecedor(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuFornecedorMouseClicked
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -1150,11 +1150,11 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuProdutoMouseClicked
-        // TODO add your handling code here:
+        Produto.getInstance().setVisible(true);
     }//GEN-LAST:event_jMenuProdutoMouseClicked
 
     private void jMenuProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuProdutoActionPerformed
-        // TODO add your handling code here:
+        Produto.getInstance().setVisible(true);
     }//GEN-LAST:event_jMenuProdutoActionPerformed
 
     private void jMenuSaidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSaidaMouseClicked
