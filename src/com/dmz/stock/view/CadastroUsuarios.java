@@ -1,15 +1,33 @@
 package com.dmz.stock.view;
 
+import com.dmz.stock.auxiliar.AuxiliarClass;
+import com.dmz.stock.auxiliar.ConversorDateTime;
 import com.dmz.stock.auxiliar.Expressoes;
+import com.dmz.stock.auxiliar.GeradorPassword;
+import com.dmz.stock.controller.FuncionarioController;
+import com.dmz.stock.controller.UsuarioController;
+import com.dmz.stock.model.TipoUsuario;
+import com.dmz.stock.model.Usuario;
 import configuracoes.SystemMessage;
+import java.awt.Cursor;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
  * @author seraf
  */
 public class CadastroUsuarios extends javax.swing.JDialog {
+
+    private int idUsuario;
+    private final UsuarioController usuarioController = new UsuarioController();
+    private final FuncionarioController funcionarioController= new FuncionarioController();
 
     /**
      * Creates new form CadastroUsuarios
@@ -74,8 +92,6 @@ public class CadastroUsuarios extends javax.swing.JDialog {
         jLabel14 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jComboBoxDepartamento = new javax.swing.JComboBox();
         lblLogin = new javax.swing.JLabel();
         txtUserLogin = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
@@ -88,7 +104,6 @@ public class CadastroUsuarios extends javax.swing.JDialog {
         lblTipoUsuario = new javax.swing.JLabel();
         asterisco12 = new javax.swing.JLabel();
         asterisco14 = new javax.swing.JLabel();
-        asterisco15 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         asterisco16 = new javax.swing.JLabel();
@@ -361,15 +376,6 @@ public class CadastroUsuarios extends javax.swing.JDialog {
         jPanel8.setBackground(new java.awt.Color(26, 118, 141));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel13.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Departamento:");
-        jPanel8.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 5, -1, -1));
-
-        jComboBoxDepartamento.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
-        jComboBoxDepartamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione um Departamento..." }));
-        jPanel8.add(jComboBoxDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 40, 250, 33));
-
         lblLogin.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         lblLogin.setForeground(new java.awt.Color(255, 255, 255));
         lblLogin.setText("Login do Usuário: ");
@@ -464,11 +470,6 @@ public class CadastroUsuarios extends javax.swing.JDialog {
         asterisco14.setForeground(new java.awt.Color(255, 255, 255));
         asterisco14.setText("*");
         jPanel8.add(asterisco14, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 5, 10, -1));
-
-        asterisco15.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
-        asterisco15.setForeground(new java.awt.Color(255, 255, 255));
-        asterisco15.setText("*");
-        jPanel8.add(asterisco15, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 5, 10, -1));
 
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -628,7 +629,10 @@ public class CadastroUsuarios extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+
+        if (validarCampos() && verificandoExistencia()) {
+            criandoNovoUsuario(dadosUsuario());
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -791,7 +795,6 @@ public class CadastroUsuarios extends javax.swing.JDialog {
     private javax.swing.JLabel asterisco11;
     private javax.swing.JLabel asterisco12;
     private javax.swing.JLabel asterisco14;
-    private javax.swing.JLabel asterisco15;
     private javax.swing.JLabel asterisco16;
     private javax.swing.JLabel asterisco17;
     private javax.swing.JLabel asterisco18;
@@ -809,14 +812,12 @@ public class CadastroUsuarios extends javax.swing.JDialog {
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jChooserDataNascimento;
     private javax.swing.JComboBox jComboBoxCidade;
-    private javax.swing.JComboBox jComboBoxDepartamento;
     private javax.swing.JComboBox jComboBoxPais;
     private javax.swing.JComboBox jComboBoxTipoUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -859,5 +860,275 @@ public class CadastroUsuarios extends javax.swing.JDialog {
         setLocationRelativeTo(this);
         this.setIconImage(new ImageIcon(getClass().getResource(SystemMessage.IMAGE_URL)).getImage());
         this.setTitle(SystemMessage.SYSTEM_NAME + " - Usuários do Sistema");
+        validarTextField();
+        setAsterisco(false);
+         jChooserDataNascimento.setDate(new Date());
+         jComboBoxTipoUsuario.addItem(TipoUsuario.Administrador);
+         jComboBoxTipoUsuario.addItem(TipoUsuario.Atendente);
+    }
+
+    private void validarTextField() {
+        txtUserName.setDocument(new Expressoes());
+        txtUserApelido.setDocument(new Expressoes.InternalWords());
+        txtUserOtherName.setDocument(new Expressoes.InternalWords());
+        txtBairro.setDocument(new Expressoes());
+        txtUserEmail.setDocument(new Expressoes.InternalClassEmail());
+        txtNumeroResidencia.setDocument(new Expressoes.InternalClassDigit());
+        txtRua.setDocument(new Expressoes.InternalClassToUpperCase());
+        txtUserLogin.setDocument(new Expressoes.InternalClassEmail());
+        txtPassword.setDocument(new Expressoes.InternalClassEmail());
+
+        try {
+            MaskFormatter formatter = new MaskFormatter("############ U");
+            formatter.install(txtUserBilheteIdentidade);
+        } catch (ParseException ex) {
+        }
+    }
+
+    /**
+     * =========================Limpando os Fields========================
+     */
+    private void limpar() {
+        AuxiliarClass.limparCampos(rootPane);
+        jChooserDataNascimento.setMaxSelectableDate(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now().minusYears(18)));
+        jChooserDataNascimento.setMinSelectableDate(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now().minusYears(100)));
+        jChooserDataNascimento.setDate(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now().minusYears(18)));
+    }
+
+    /**
+     * =======================Validação de dados do Usuario================
+     *
+     * @return
+     */
+    private boolean validarCampos() {
+        setAsterisco(true);
+        Date nascimento = jChooserDataNascimento.getDate();
+        int anoNascimento = nascimento == null ? 0 : ConversorDateTime.calendarToLocalDate(jChooserDataNascimento.getCalendar()).getYear();
+        int anoAtual = LocalDate.now().getYear();
+        int idadeAtual = anoAtual - anoNascimento;
+
+        /*
+         ===================Dados pessoais e genericos verificando=================
+         */
+        if (txtUserName.getText().isEmpty() || txtUserApelido.getText().isEmpty()
+                || txtBairro.getText().isEmpty() || txtRua.getText().isEmpty()
+                || txtNumeroResidencia.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios do formulário.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        /*
+         ===================Idade verificando=================
+         */
+        if (idadeAtual < 18) {
+            JOptionPane.showMessageDialog(this, "A idade do Usuario não deve ser menor que 18 anos.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        /*
+         ===================Genero verificando=================
+         */
+        if (!jRadioFeminino.isSelected() && !jRadioMasculino.isSelected()) {
+            JOptionPane.showMessageDialog(this, "O género deve ser selecionado.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        /*
+         ===================Nacionalidade verificando=================
+         */
+        if (String.valueOf(jComboBoxPais.getSelectedItem()).
+                equalsIgnoreCase("Selecione uma nacionalidade...")) {
+
+            JOptionPane.showMessageDialog(this, "A nacionalidade deve ser selecionada.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        /*
+         ===================Cidade verificando=================
+         */
+        if (String.valueOf(jComboBoxCidade.getSelectedItem()).
+                equalsIgnoreCase("Selecione uma cidade...")) {
+
+            JOptionPane.showMessageDialog(this, "A cidade deve ser selecionada.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        /*
+         ===================Login verificando=================
+         */
+        if ((txtUserLogin.getText().length() < 8)) {
+            JOptionPane.showMessageDialog(this,
+                    "O Login Deve Conter no minimo 8 Caracteres.",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+
+            return false;
+        }
+
+        if (String.valueOf(txtPassword.getPassword()).length() < 6) {
+            JOptionPane.showMessageDialog(this,
+                    "A Senha Deve Conter no minimo 6 Caracteres.",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+
+            return false;
+        }
+        /*
+         =============Verificando o tipo de usuário
+         */
+        if (jComboBoxTipoUsuario.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "O Tipo de Usuário deve ser selecionado.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        setAsterisco(false);
+        return true;
+    }
+
+    /**
+     * ============Pegando e retornando os dados do Usuario============
+     *
+     * @return
+     */
+    private Usuario dadosUsuario() {
+        /*
+         =====================Dados pessoais======================
+         */
+        AuxiliarClass.formatarTextFieldAoSalvar(rootPane);
+        Usuario usuario = new Usuario();
+        usuario.setNome(txtUserName.getText());
+        usuario.setNuit(txtUserNUIT.getText());
+        usuario.setApelido(txtUserApelido.getText());
+        usuario.setbIdentidade(txtUserBilheteIdentidade.getText());
+        try {
+            usuario.setNascimento(ConversorDateTime.utilDateToSQLDate(jChooserDataNascimento.getDate()));
+        } catch (ParseException ex) {
+        }
+        usuario.setOutroNome(txtUserOtherName.getText());
+        usuario.setNacionalidade(jComboBoxPais.getSelectedItem().toString());
+
+        /*
+         ======================Genero===================
+         */
+        if (jRadioFeminino.isSelected()) {
+            usuario.setGenero("Masculino");
+        } else if (jRadioMasculino.isSelected()) {
+            usuario.setGenero("Feminino");
+        }
+
+        /*
+         ====================Auth========================
+         */
+        usuario.setUsername(txtUserLogin.getText());
+        usuario.setPassword(GeradorPassword.encrypt(String.valueOf(txtPassword.getPassword())));
+        usuario.setTipoUsuario(TipoUsuario.valueOf(jComboBoxTipoUsuario.getSelectedItem().toString()));
+        usuario.setStatus("Acivo");
+
+        return usuario;
+    }
+
+    /**
+     * ======================Verificação de Dados pessoas============
+     *
+     * @return
+     */
+    private boolean verificandoExistencia() {
+        List<Usuario> usuario = usuarioController.retornaTodosUsuarios();
+
+        for (Usuario user : usuario) {
+            /*
+             ======================Verificando Login=================
+             */
+            if (user.getUsername().equalsIgnoreCase(txtUserLogin.getText())) {
+                JOptionPane.showMessageDialog(this, "O Login digitado já existe.",
+                        SystemMessage.SYSTEM_NAME,
+                        JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        }
+
+        /*
+         ======================Verificando NUIT=================
+         */
+        if (funcionarioController.getFuncionarioByNuitDAO(txtUserNUIT.getText())) {
+            JOptionPane.showMessageDialog(this, "O NUIT digitado já existe.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        /*
+         ======================Verificando Bilhete de identidade=================
+         */
+        if (funcionarioController.getFuncionarioByBilheteIdentidadeController(txtUserBilheteIdentidade.getText())) {
+            JOptionPane.showMessageDialog(this, "O Bilhete de Identidade digitado já existe.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * =======================Criando novo usuario=================
+     *
+     * @param usuario
+     */
+    private long criandoNovoUsuario(Usuario usuario) {
+        idUsuario = 0;
+        if (usuario != null) {
+            idUsuario = usuarioController.criarUsuario(usuario);
+
+            if (idUsuario > 0) {
+                this.setCursor(new Cursor(0));
+                JOptionPane.showMessageDialog(this, "Usuario Cadastrado Com Sucesso",
+                        SystemMessage.SYSTEM_NAME, JOptionPane.INFORMATION_MESSAGE);
+
+                limpar();
+                setAsterisco(false);
+            } else {
+                this.setCursor(new Cursor(0));
+                JOptionPane.showMessageDialog(this, "Erro ao cadastar o Usuario.",
+                        SystemMessage.SYSTEM_NAME, JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        return idUsuario;
+    }
+
+    /**
+     *
+     * @param b
+     */
+    private void setAsterisco(boolean b) {
+        asterisco1.setVisible(b);
+        asterisco2.setVisible(b);
+        asterisco3.setVisible(b);
+        asterisco4.setVisible(b);
+        asterisco5.setVisible(b);
+        asterisco6.setVisible(b);
+        asterisco8.setVisible(b);
+        asterisco9.setVisible(b);
+        asterisco10.setVisible(b);
+        asterisco11.setVisible(b);
+        asterisco12.setVisible(b);
+        asterisco14.setVisible(b);
+        asterisco16.setVisible(b);
+        asterisco17.setVisible(b);
+        asterisco18.setVisible(b);
+        asterisco19.setVisible(b);
+        asteriscoInfo.setVisible(b);
     }
 }

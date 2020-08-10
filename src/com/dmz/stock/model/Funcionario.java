@@ -1,5 +1,7 @@
 package com.dmz.stock.model;
 
+import java.util.Date;
+
 /**
  *
  * @author seraf
@@ -14,6 +16,8 @@ public class Funcionario {
     private String bIdentidade;
     private String nuit;
     private String nacionalidade;
+    private Date nascimento;
+    private Date createdAt;
 
     public int getId() {
         return id;
@@ -79,9 +83,25 @@ public class Funcionario {
         this.nacionalidade = nacionalidade;
     }
 
+    public Date getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(Date nascimento) {
+        this.nascimento = nascimento;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public String toString() {
-        return "Funcionario{" + "id=" + id + ", nome=" + nome + ", apelido=" + apelido + ", outroNome=" + outroNome + ", genero=" + genero + ", bIdentidade=" + bIdentidade + ", nuit=" + nuit + ", nacionalidade=" + nacionalidade + '}';
+        return "Funcionario{" + "id=" + id + ", nome=" + nome + ", apelido=" + apelido + ", outroNome=" + outroNome + ", genero=" + genero + ", bIdentidade=" + bIdentidade + ", nuit=" + nuit + ", nacionalidade=" + nacionalidade + ", nascimento=" + nascimento + ", createdAt=" + createdAt + '}';
     }
 
 }

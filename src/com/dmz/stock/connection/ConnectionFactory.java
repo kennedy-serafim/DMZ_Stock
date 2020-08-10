@@ -102,4 +102,19 @@ public class ConnectionFactory {
         }
     }
 
+    /**
+     *
+     * @param statement
+     * @return
+     * @throws SQLException
+     */
+    public static int getLastInsertID(Statement statement) throws SQLException {
+
+        ConnectionFactory.setResultSet(statement.getGeneratedKeys());
+        while (ConnectionFactory.getResultSet().next()) {
+           return ConnectionFactory.getResultSet().getInt(1);
+        }
+        return 0;
+    }
+
 }

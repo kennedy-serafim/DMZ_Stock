@@ -1,5 +1,6 @@
 package com.dmz.stock.view;
 
+import com.dmz.stock.model.UsuarioSessao;
 import configuracoes.SystemMessage;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -10,7 +11,7 @@ import javax.swing.JOptionPane;
  * @author seraf
  */
 public class Dashboard extends javax.swing.JFrame {
-    
+
     private int positionX, positionY;
 
     /**
@@ -1047,7 +1048,7 @@ public class Dashboard extends javax.swing.JFrame {
                 "Pretende fechar o Sistema?",
                 SystemMessage.SYSTEM_NAME,
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            
+
             System.exit(0);
         }
     }//GEN-LAST:event_lblSairMouseClicked
@@ -1298,5 +1299,6 @@ public class Dashboard extends javax.swing.JFrame {
                 getResource(SystemMessage.IMAGE_URL)).getImage());
         this.setTitle(SystemMessage.SYSTEM_NAME + " - Sistema de Gestão de Estoque");
         lblSistemName.setText(SystemMessage.SYSTEM_NAME);
+        lblUserName.setText(UsuarioSessao.getNomeFuncionario() + " " + UsuarioSessao.getApelidoFuncionario());
     }
 }

@@ -1,7 +1,11 @@
 package com.dmz.stock.view;
 
 import com.dmz.stock.auxiliar.Expressoes;
+import com.dmz.stock.auxiliar.GeradorPassword;
 import com.dmz.stock.controller.AutenticadorController;
+import com.dmz.stock.controller.UsuarioController;
+import com.dmz.stock.model.Usuario;
+import com.dmz.stock.model.UsuarioSessao;
 import configuracoes.SystemMessage;
 import java.time.LocalDate;
 import javax.swing.ImageIcon;
@@ -360,7 +364,6 @@ public class Index extends javax.swing.JFrame {
         lblPassWrong.setVisible(false);
         lblUserWrong.setVisible(false);
         labelYear.setText(String.valueOf(LocalDate.now().getYear()));
-
     }
 
     /**
@@ -369,17 +372,26 @@ public class Index extends javax.swing.JFrame {
     private void validarAcesso() {
         lblPassWrong.setVisible(false);
         lblUserWrong.setVisible(false);
-        
+
         if (tentativaAcesso < 3) {
 
             String user = txtUsuario.getText().trim();
             String pass = String.valueOf(txtPass.getPassword());
 
             if (!(user.isEmpty() || pass.isEmpty())) {
-                long idUser = new AutenticadorController().autenticacao(user, pass);
-                
+                System.err.println("Index "+GeradorPassword.encrypt(pass));
+                int idUser = new AutenticadorController().autenticacao(user, GeradorPassword.encrypt(pass));
+
                 if (idUser > 0) { //
+                    Usuario usuario = new UsuarioController().pesquisarUsuarioPorIDDAO(idUser);
+                    UsuarioSessao.setIdFuncionario(usuario.getId());
+                    UsuarioSessao.setNomeFuncionario(usuario.getNome());
+                    UsuarioSessao.setApelidoFuncionario(usuario.getApelido());
+                    UsuarioSessao.setLogin(usuario.getUsername());
+                    UsuarioSessao.setTipoUsuario(usuario.getTipoUsuario().toString());
+                    UsuarioSessao.setPassword(usuario.getPassword());
                     this.dispose();
+
                     new Dashboard().setVisible(true);
 
                 } else {

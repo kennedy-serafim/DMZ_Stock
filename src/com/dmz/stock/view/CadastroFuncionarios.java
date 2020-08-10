@@ -1,15 +1,28 @@
 package com.dmz.stock.view;
 
+import com.dmz.stock.auxiliar.AuxiliarClass;
+import com.dmz.stock.auxiliar.ConversorDateTime;
 import com.dmz.stock.auxiliar.Expressoes;
+import com.dmz.stock.controller.FuncionarioController;
+import com.dmz.stock.model.Funcionario;
 import configuracoes.SystemMessage;
+import java.awt.Cursor;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
  * @author seraf
  */
 public class CadastroFuncionarios extends javax.swing.JDialog {
+
+    FuncionarioController funcionarioController = new FuncionarioController();
+    private int idFuncionario;
 
     /**
      * Creates new form CadastroFuncionarios
@@ -70,8 +83,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         txtRua = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         txtNumeroResidencia = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jComboBoxDepartamento = new javax.swing.JComboBox();
         asterisco1 = new javax.swing.JLabel();
         asterisco2 = new javax.swing.JLabel();
         asterisco3 = new javax.swing.JLabel();
@@ -85,7 +96,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         asterisco12 = new javax.swing.JLabel();
         asterisco13 = new javax.swing.JLabel();
         asterisco15 = new javax.swing.JLabel();
-        asterisco16 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         asteriscoInfo = new javax.swing.JLabel();
@@ -156,7 +166,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 txtUserNameActionPerformed(evt);
             }
         });
-        jPanel3.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 59, 263, 33));
+        jPanel3.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 59, 263, 30));
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -170,7 +180,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 txtUserApelidoActionPerformed(evt);
             }
         });
-        jPanel3.add(txtUserApelido, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 200, 33));
+        jPanel3.add(txtUserApelido, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 200, 30));
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -179,17 +189,17 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
 
         txtUserOtherName.setFont(new java.awt.Font("Trebuchet MS", 0, 17)); // NOI18N
         txtUserOtherName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel3.add(txtUserOtherName, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, 190, 33));
+        jPanel3.add(txtUserOtherName, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, 190, 30));
 
         jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Data de Nascimento:");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 20, -1, -1));
 
-        jChooserDataNascimento.setToolTipText("Ex: 01/01/2000");
-        jChooserDataNascimento.setDateFormatString("dd - MM - yyyy");
+        jChooserDataNascimento.setToolTipText("Ex: 01-01-2000");
+        jChooserDataNascimento.setDateFormatString("dd-MM-yyyy");
         jChooserDataNascimento.setFont(new java.awt.Font("Trebuchet MS", 0, 17)); // NOI18N
-        jPanel3.add(jChooserDataNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 60, 218, 33));
+        jPanel3.add(jChooserDataNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 60, 218, 30));
 
         jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -229,7 +239,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 txtUserBilheteIdentidadeActionPerformed(evt);
             }
         });
-        jPanel3.add(txtUserBilheteIdentidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 200, 33));
+        jPanel3.add(txtUserBilheteIdentidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 200, 30));
 
         jLabel10.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -252,7 +262,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 txtUserNUITActionPerformed(evt);
             }
         });
-        jPanel3.add(txtUserNUIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 150, 190, 33));
+        jPanel3.add(txtUserNUIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 150, 190, 30));
 
         jLabel11.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -271,7 +281,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 txtUserTelefoneActionPerformed(evt);
             }
         });
-        jPanel3.add(txtUserTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 150, 218, 33));
+        jPanel3.add(txtUserTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 150, 218, 30));
 
         jLabel12.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -292,7 +302,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 txtUserEmailKeyReleased(evt);
             }
         });
-        jPanel3.add(txtUserEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 314, 33));
+        jPanel3.add(txtUserEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 314, 30));
 
         jLabel15.setBackground(new java.awt.Color(255, 255, 255));
         jLabel15.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
@@ -303,7 +313,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         jComboBoxPais.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         jComboBoxPais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma nacionalidade...", "Moçambicana" }));
         jComboBoxPais.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel3.add(jComboBoxPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, -1, 33));
+        jPanel3.add(jComboBoxPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, -1, 30));
 
         jLabel16.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
@@ -313,7 +323,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         jComboBoxCidade.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         jComboBoxCidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma cidade...", "Maputo", "Matola", "Beira", "Nampula", "Chimoio", "Nacala", "Quelimane", "Tete", "Lichinga", "Xai-Xai", "Maxixe", "Manica", "Inhambane" }));
         jComboBoxCidade.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel3.add(jComboBoxCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 240, -1, 33));
+        jPanel3.add(jComboBoxCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 240, -1, 30));
 
         jLabel17.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
@@ -326,7 +336,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 txtBairroActionPerformed(evt);
             }
         });
-        jPanel3.add(txtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 320, 254, 33));
+        jPanel3.add(txtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 320, 254, 30));
 
         jLabel18.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
@@ -339,7 +349,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 txtRuaActionPerformed(evt);
             }
         });
-        jPanel3.add(txtRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 321, 249, 33));
+        jPanel3.add(txtRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 321, 249, 30));
 
         jLabel20.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
@@ -347,21 +357,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 290, -1, -1));
 
         txtNumeroResidencia.setFont(new java.awt.Font("Trebuchet MS", 0, 17)); // NOI18N
-        jPanel3.add(txtNumeroResidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 320, 175, 33));
-
-        jLabel13.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Departamento:");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 372, -1, -1));
-
-        jComboBoxDepartamento.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
-        jComboBoxDepartamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione um Departamento..." }));
-        jComboBoxDepartamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxDepartamentoActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jComboBoxDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 403, -1, 33));
+        jPanel3.add(txtNumeroResidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 320, 175, 30));
 
         asterisco1.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         asterisco1.setForeground(new java.awt.Color(255, 255, 255));
@@ -428,11 +424,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         asterisco15.setText("*");
         jPanel3.add(asterisco15, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 290, -1, -1));
 
-        asterisco16.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
-        asterisco16.setForeground(new java.awt.Color(255, 255, 255));
-        asterisco16.setText("*");
-        jPanel3.add(asterisco16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, -1, -1));
-
         jLabel19.setToolTipText("Adicionar mais números de Telefone");
         jLabel19.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -472,8 +463,8 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         jPanelConteudoLayout.setVerticalGroup(
             jPanelConteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelConteudoLayout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jPanelConteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -497,7 +488,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                         .addComponent(asteriscoInfo)
                         .addGap(123, 123, 123)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, 0))
                     .addComponent(jSeparator1))
                 .addContainerGap())
             .addComponent(jPanelConteudo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -512,7 +503,8 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelConteudo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelConteudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -534,7 +526,9 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        if (validarCampos() && verificandoExistencia()) {
+            criandoNovoFuncionario(dadosFuncionario());
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -608,10 +602,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         txtBairro.requestFocus();        // TODO add your handling code here:
     }//GEN-LAST:event_txtRuaActionPerformed
 
-    private void jComboBoxDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxDepartamentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxDepartamentoActionPerformed
-
     private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
         if (txtUserTelefone.getText().trim().equals("+ (258)")) {
         } else {
@@ -647,7 +637,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(CadastroFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the dialog */
@@ -670,7 +660,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
     private javax.swing.JLabel asterisco12;
     private javax.swing.JLabel asterisco13;
     private javax.swing.JLabel asterisco15;
-    private javax.swing.JLabel asterisco16;
     private javax.swing.JLabel asterisco2;
     private javax.swing.JLabel asterisco3;
     private javax.swing.JLabel asterisco5;
@@ -684,13 +673,11 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jChooserDataNascimento;
     private javax.swing.JComboBox jComboBoxCidade;
-    private javax.swing.JComboBox jComboBoxDepartamento;
     private javax.swing.JComboBox jComboBoxPais;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -727,5 +714,199 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         setLocationRelativeTo(this);
         this.setIconImage(new ImageIcon(getClass().getResource(SystemMessage.IMAGE_URL)).getImage());
         this.setTitle(SystemMessage.SYSTEM_NAME + " - Funcionários da empresa");
+        validarTextField();
+        jChooserDataNascimento.setDate(new Date());
+        setAsterisco(false);
     }
+
+    private void validarTextField() {
+        txtUserName.setDocument(new Expressoes());
+        txtUserApelido.setDocument(new Expressoes.InternalWords());
+        txtUserOtherName.setDocument(new Expressoes.InternalWords());
+        txtBairro.setDocument(new Expressoes());
+        txtUserEmail.setDocument(new Expressoes.InternalClassEmail());
+        txtNumeroResidencia.setDocument(new Expressoes.InternalClassDigit());
+        txtRua.setDocument(new Expressoes.InternalClassToUpperCase());
+
+        try {
+            MaskFormatter formatter = new MaskFormatter("############ U");
+            formatter.install(txtUserBilheteIdentidade);
+        } catch (ParseException ex) {
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    private boolean validarCampos() {
+        Date nascimento = jChooserDataNascimento.getDate();
+        int anoNascimento = nascimento == null ? 0 : ConversorDateTime.calendarToLocalDate(jChooserDataNascimento.getCalendar()).getYear();
+        int anoAtual = LocalDate.now().getYear();
+        int idadeAtual = anoAtual - anoNascimento;
+
+        /*
+         ===================Dados pessoais e genericos verificando=================
+         */
+        if (txtUserName.getText().isEmpty() || txtUserApelido.getText().isEmpty()
+                || txtBairro.getText().isEmpty() || txtRua.getText().isEmpty()
+                || txtNumeroResidencia.getText().isEmpty()) {
+            setAsterisco(true);
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios do formulário.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        /*
+         ===================Idade verificando=================
+         */
+        if (idadeAtual < 18) {
+            JOptionPane.showMessageDialog(this, "A idade do Funcionario não deve ser menor que 18 anos.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        /*
+         ===================Genero verificando=================
+         */
+        if (!jRadioFeminino.isSelected() && !jRadioMasculino.isSelected()) {
+            JOptionPane.showMessageDialog(this, "O género deve ser selecionado.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        /*
+         ===================Nacionalidade verificando=================
+         */
+        if (jComboBoxPais.getSelectedIndex() == 0) {
+
+            JOptionPane.showMessageDialog(this, "A nacionalidade deve ser selecionada.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        /*
+         ===================Cidade verificando=================
+         */
+        if (jComboBoxCidade.getSelectedIndex() == 0) {
+
+            JOptionPane.showMessageDialog(this, "A cidade deve ser selecionada.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean verificandoExistencia() {
+
+        /*
+         ======================Verificando NUIT=================
+         */
+        if (funcionarioController.getFuncionarioByNuitDAO(txtUserNUIT.getText())) {
+            JOptionPane.showMessageDialog(this, "O NUIT digitado já existe.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        /*
+         ======================Verificando Bilhete de identidade=================
+         */
+        if (funcionarioController.getFuncionarioByBilheteIdentidadeController(txtUserBilheteIdentidade.getText())) {
+            JOptionPane.showMessageDialog(this, "O Bilhete de Identidade digitado já existe.",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     *
+     * @param b
+     */
+    private void setAsterisco(boolean b) {
+        asterisco1.setVisible(b);
+        asterisco2.setVisible(b);
+        asterisco3.setVisible(b);
+        asterisco5.setVisible(b);
+        asterisco6.setVisible(b);
+        asterisco7.setVisible(b);
+        asterisco8.setVisible(b);
+        asterisco9.setVisible(b);
+        asterisco10.setVisible(b);
+        asterisco11.setVisible(b);
+        asterisco12.setVisible(b);
+        asterisco13.setVisible(b);
+        asterisco15.setVisible(b);
+        asteriscoInfo.setVisible(b);
+    }
+
+    private Funcionario dadosFuncionario() {
+        /*
+         =====================Dados pessoais======================
+         */
+        AuxiliarClass.formatarTextFieldAoSalvar(rootPane);
+        Funcionario funcionario = new Funcionario();
+        funcionario.setNome(txtUserName.getText());
+        funcionario.setNuit(txtUserNUIT.getText());
+        funcionario.setApelido(txtUserApelido.getText());
+        funcionario.setbIdentidade(txtUserBilheteIdentidade.getText());
+        funcionario.setNascimento(jChooserDataNascimento.getDate());
+        funcionario.setOutroNome(txtUserOtherName.getText());
+        funcionario.setNacionalidade(jComboBoxPais.getSelectedItem().toString());
+
+        if (jRadioFeminino.isSelected()) {
+            funcionario.setGenero("Feminino");
+        } else if (jRadioMasculino.isSelected()) {
+            funcionario.setGenero("Masculino");
+        }
+
+        return funcionario;
+    }
+
+    /**
+     *
+     * @param funcionario
+     * @return
+     */
+    private long criandoNovoFuncionario(Funcionario funcionario) {
+        idFuncionario = 0;
+        if (funcionario != null) {
+            idFuncionario = funcionarioController.criarFuncionario(funcionario);
+
+            if (idFuncionario > 0) {
+                this.setCursor(new Cursor(0));
+                JOptionPane.showMessageDialog(this, "Funcionário Cadastrado Com Sucesso",
+                        SystemMessage.SYSTEM_NAME, JOptionPane.INFORMATION_MESSAGE);
+
+                limpar();
+                setAsterisco(true);
+            } else {
+                this.setCursor(new Cursor(0));
+                JOptionPane.showMessageDialog(this, "Erro ao cadastar o Funcionário.",
+                        SystemMessage.SYSTEM_NAME, JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        return idFuncionario;
+    }
+
+    /**
+     *
+     */
+    private void limpar() {
+        AuxiliarClass.limparCampos(rootPane);
+        jChooserDataNascimento.setMaxSelectableDate(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now().minusYears(18)));
+        jChooserDataNascimento.setMinSelectableDate(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now().minusYears(100)));
+        jChooserDataNascimento.setDate(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now().minusYears(18)));
+    }
+
 }
