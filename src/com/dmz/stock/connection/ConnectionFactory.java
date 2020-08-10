@@ -53,4 +53,53 @@ public class ConnectionFactory {
         return connection;
     }
 
+    public static PreparedStatement getPreparedStatement() {
+        return preparedStatement;
+    }
+
+    public static void setPreparedStatement(PreparedStatement preparedStatement) {
+        ConnectionFactory.preparedStatement = preparedStatement;
+    }
+
+    public static Statement getStatement() {
+        return statement;
+    }
+
+    public static void setStatement(Statement statement) {
+        ConnectionFactory.statement = statement;
+    }
+
+    public static ResultSet getResultSet() {
+        return resultSet;
+    }
+
+    public static void setResultSet(ResultSet resultSet) {
+        ConnectionFactory.resultSet = resultSet;
+    }
+
+    public final static void closeConnection() {
+        try {
+
+            if (getResultSet() != null) {
+                /* Fechando o ResultSet */
+
+                getResultSet().close();
+            }
+
+            if (getStatement() != null) {
+                /* Fechando o Statement */
+
+                getStatement().close();
+            }
+
+            if (getPreparedStatement() != null) {
+                /* Fechando o PreparedStatement */
+
+                getPreparedStatement().close();
+            }
+
+        } catch (SQLException | NullPointerException e) {
+        }
+    }
+
 }

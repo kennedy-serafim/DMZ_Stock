@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  * @author seraf
  */
 public class Dashboard extends javax.swing.JFrame {
-
+    
     private int positionX, positionY;
 
     /**
@@ -1017,6 +1017,11 @@ public class Dashboard extends javax.swing.JFrame {
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/filled-box-24.png"))); // NOI18N
         jMenuItem3.setText("Saídas");
         jMenuItem3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenuRelatorio.add(jMenuItem3);
 
         jMenuBar1.add(jMenuRelatorio);
@@ -1042,7 +1047,7 @@ public class Dashboard extends javax.swing.JFrame {
                 "Pretende fechar o Sistema?",
                 SystemMessage.SYSTEM_NAME,
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
+            
             System.exit(0);
         }
     }//GEN-LAST:event_lblSairMouseClicked
@@ -1090,7 +1095,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_panelArquivoMouseClicked
 
     private void panel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel2MouseClicked
-        JOptionPane.showMessageDialog(jMenuFuncionario, "OK Painel 2");
+        Estoque.getInstance().setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_panel2MouseClicked
 
     private void panel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel2MouseEntered
@@ -1126,11 +1131,17 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_panel4MouseExited
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this,
+                "Ops!.. O relatório estará disponivel assim que terminar a manutenção",
+                SystemMessage.SYSTEM_NAME,
+                JOptionPane.INFORMATION_MESSAGE);           // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this,
+                "Ops!.. O relatório estará disponivel assim que terminar a manutenção",
+                SystemMessage.SYSTEM_NAME,
+                JOptionPane.INFORMATION_MESSAGE);           // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFornecedorActionPerformed
@@ -1164,6 +1175,13 @@ public class Dashboard extends javax.swing.JFrame {
     private void jMenuSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaidaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuSaidaActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        JOptionPane.showMessageDialog(this,
+                "Ops!.. O relatório estará disponivel assim que terminar a manutenção",
+                SystemMessage.SYSTEM_NAME,
+                JOptionPane.INFORMATION_MESSAGE);           // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
