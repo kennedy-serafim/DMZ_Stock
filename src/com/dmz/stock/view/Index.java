@@ -1,6 +1,7 @@
 package com.dmz.stock.view;
 
 import com.dmz.stock.auxiliar.Expressoes;
+import com.dmz.stock.controller.AutenticadorController;
 import configuracoes.SystemMessage;
 import java.time.LocalDate;
 import javax.swing.ImageIcon;
@@ -371,14 +372,11 @@ public class Index extends javax.swing.JFrame {
         
         if (tentativaAcesso < 3) {
 
-            String user = null;
-            String pass = null;
-            user = txtUsuario.getText().trim();
-            pass = String.valueOf(txtPass.getPassword());
+            String user = txtUsuario.getText().trim();
+            String pass = String.valueOf(txtPass.getPassword());
 
             if (!(user.isEmpty() || pass.isEmpty())) {
-                long idUser = 0;
-                idUser = 1;
+                long idUser = new AutenticadorController().autenticacao(user, pass);
                 
                 if (idUser > 0) { //
                     this.dispose();
