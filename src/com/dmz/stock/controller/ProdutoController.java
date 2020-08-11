@@ -46,6 +46,24 @@ public class ProdutoController {
 
     /**
      *
+     * @param idProduto
+     * @return
+     */
+    public List<Produto> retornarProdutosPeloId(int idProduto) {
+        return produtoDAO.retornarProdutosPeloId(idProduto);
+    }
+
+    /**
+     *
+     * @param codigoBarras
+     * @return
+     */
+    public List<Produto> retornarProdutosPeloCodigoBarras(String codigoBarras) {
+        return produtoDAO.retornarProdutosPeloCodigoBarras(codigoBarras);
+    }
+
+    /**
+     *
      * @param nomeProduto
      * @return
      */
@@ -94,6 +112,15 @@ public class ProdutoController {
      */
     public List<Produto> retornarProdutoPorEstoqueMinimo() {
         return produtoDAO.retornarProdutoPorEstoqueMinimo();
+    }
+
+    /**
+     *
+     * @param mes
+     * @return
+     */
+    public List<Produto> retornarProdutoPeloMesEntrada(int mes) {
+        return produtoDAO.retornarProdutoPeloMesEntrada(mes);
     }
 
     /**

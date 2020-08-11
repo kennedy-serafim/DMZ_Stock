@@ -350,19 +350,17 @@ public class Produto extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(jLabel15)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtPrecoCaixa, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel17))
-                        .addComponent(txtQuantidade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtPrecoCaixa, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel17))
+                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(uJComboBoxCategoria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCodigoBarras, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(uJComboBoxCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCodigoBarras))
+                .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,7 +379,7 @@ public class Produto extends javax.swing.JFrame {
                                 .addContainerGap())
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
+                                .addGap(37, 37, 37)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(txtValorEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -393,7 +391,7 @@ public class Produto extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(txtNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(347, 479, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel22)
@@ -402,7 +400,7 @@ public class Produto extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel23))
                             .addComponent(jLabel9))
-                        .addGap(75, 75, 75)
+                        .addGap(66, 66, 66)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
@@ -810,7 +808,7 @@ public class Produto extends javax.swing.JFrame {
         txtValorEstoque.setDocument(new Expressoes.InternalClassCurrency());
         txtValorCompra.setDocument(new Expressoes.InternalClassCurrency());
         txtCodigoBarras.setDocument(new Expressoes.InternalClassEmail());
-        txtNomeProduto.setDocument(new Expressoes());
+        txtNomeProduto.setDocument(new Expressoes.InternalClassToUpperCase());
         txtDescricacao.setDocument(new Expressoes.InternalClassToUpperCase());
 
         for (String categoria : new Categorias().getCategorias()) {
@@ -888,11 +886,18 @@ public class Produto extends javax.swing.JFrame {
         produto.setCodigoBarras(txtCodigoBarras.getText());
         produto.setDataCompra(jDateChooserCompraProduto.getDate());
         produto.setDataValidade(jDateChooserValidade.getDate());
-        produto.setDescricao(txtDescricacao.getText());
-        produto.setNome(txtNomeProduto.getText());
+        produto.setDescricao(txtDescricacao.getText().trim());
+        produto.setNome(txtNomeProduto.getText().trim());
         produto.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
-        produto.setQuantidadeMinima(Integer.parseInt(txtQuantidadeMinima.getText()));
-        produto.setQuantidadePorCaixa(Integer.parseInt(txtUnidadeCaixa.getText()));
+
+        int quantidadeMinima = txtQuantidadeMinima.getText().isEmpty() || txtQuantidadeMinima.getText().equalsIgnoreCase("0")
+                ? 1 : Integer.parseInt(txtQuantidadeMinima.getText());
+
+        int unidadeCaixa = txtUnidadeCaixa.getText().isEmpty() || txtUnidadeCaixa.getText().equalsIgnoreCase("0")
+                ? 1 : Integer.parseInt(txtUnidadeCaixa.getText());
+
+        produto.setQuantidadeMinima(quantidadeMinima);
+        produto.setQuantidadePorCaixa(unidadeCaixa);
         produto.setValorPorUnidade(new BigDecimal(ConversorValores.removerVirgula(txtPrecoCaixa.getText())));
         produto.setValorTotal(new BigDecimal(ConversorValores.removerVirgula(txtValorCompra.getText())));
 
@@ -963,7 +968,7 @@ public class Produto extends javax.swing.JFrame {
                     "A Quantidade de Produtos (CX) não pode ser negativa",
                     SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
             return false;
-        } else if (txtPrecoCaixa.getText().isEmpty() ||  txtPrecoCaixa.getText().equalsIgnoreCase("0.0")) {
+        } else if (txtPrecoCaixa.getText().isEmpty() || txtPrecoCaixa.getText().equalsIgnoreCase("0.0")) {
             JOptionPane.showMessageDialog(this,
                     "O preço por caixa do produto não pode ser negativo",
                     SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);

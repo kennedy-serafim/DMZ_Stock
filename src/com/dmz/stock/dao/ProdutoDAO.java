@@ -143,6 +143,49 @@ public class ProdutoDAO {
 
     /**
      *
+     * @param codigoBarras
+     * @return
+     */
+    public List<Produto> retornarProdutosPeloCodigoBarras(String codigoBarras) {
+        String SQL = SQL_SELECT + " AND codigo_barras LIKE ?";
+        Produto produto;
+        List<Produto> produtos = new ArrayList<>();
+
+        try {
+            ConnectionFactory.setPreparedStatement(connection.prepareStatement(SQL));
+            ConnectionFactory.getPreparedStatement().setString(1, SoftDelete.DELETED.toString());
+            ConnectionFactory.getPreparedStatement().setString(2, codigoBarras + "%");
+            ConnectionFactory.setResultSet(ConnectionFactory.getPreparedStatement().executeQuery());
+
+            while (ConnectionFactory.getResultSet().next()) {
+                produto = new Produto();
+                produto.setId(ConnectionFactory.getResultSet().getInt(1));
+                produto.setCodigoBarras(ConnectionFactory.getResultSet().getString(2));
+                produto.setNome(ConnectionFactory.getResultSet().getString(3));
+                produto.setCategoria(ConnectionFactory.getResultSet().getString(4));
+                produto.setDescricao(ConnectionFactory.getResultSet().getString(5));
+                produto.setQuantidade(ConnectionFactory.getResultSet().getInt(6));
+                produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(7));
+                produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(8));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(9));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(10));
+                produto.setDataValidade(ConnectionFactory.getResultSet().getDate(11));
+                produto.setDataCompra(ConnectionFactory.getResultSet().getDate(12));
+                produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(13));
+
+                produtos.add(produto);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection();
+        }
+
+        return produtos;
+    }
+
+    /**
+     *
      * @param nomeProduto
      * @return
      */
@@ -513,6 +556,49 @@ public class ProdutoDAO {
         }
 
         return produto;
+    }
+
+    /**
+     *
+     * @param idProduto
+     * @return
+     */
+    public List<Produto> retornarProdutosPeloId(int idProduto) {
+        String SQL = SQL_SELECT + " AND id LIKE ?";
+        Produto produto;
+        List<Produto> produtos = new ArrayList<>();
+
+        try {
+            ConnectionFactory.setPreparedStatement(connection.prepareStatement(SQL));
+            ConnectionFactory.getPreparedStatement().setString(1, SoftDelete.DELETED.toString());
+            ConnectionFactory.getPreparedStatement().setString(2, idProduto + "%");
+            ConnectionFactory.setResultSet(ConnectionFactory.getPreparedStatement().executeQuery());
+
+            while (ConnectionFactory.getResultSet().next()) {
+                produto = new Produto();
+                produto.setId(ConnectionFactory.getResultSet().getInt(1));
+                produto.setCodigoBarras(ConnectionFactory.getResultSet().getString(2));
+                produto.setNome(ConnectionFactory.getResultSet().getString(3));
+                produto.setCategoria(ConnectionFactory.getResultSet().getString(4));
+                produto.setDescricao(ConnectionFactory.getResultSet().getString(5));
+                produto.setQuantidade(ConnectionFactory.getResultSet().getInt(6));
+                produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(7));
+                produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(8));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(9));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(10));
+                produto.setDataValidade(ConnectionFactory.getResultSet().getDate(11));
+                produto.setDataCompra(ConnectionFactory.getResultSet().getDate(12));
+                produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(13));
+
+                produtos.add(produto);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection();
+        }
+
+        return produtos;
     }
 
 //    public static void main(String[] args) throws ParseException {

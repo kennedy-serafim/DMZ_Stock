@@ -1,10 +1,18 @@
 package com.dmz.stock.view;
 
+import com.dmz.stock.auxiliar.ConversorDateTime;
+import com.dmz.stock.controller.FornecedorController;
+import com.dmz.stock.controller.FornecedorProdutoController;
+import com.dmz.stock.controller.ProdutoController;
 import com.dmz.stock.model.UsuarioSessao;
 import configuracoes.SystemMessage;
 import java.awt.Color;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,6 +21,7 @@ import javax.swing.JOptionPane;
 public class Dashboard extends javax.swing.JFrame {
 
     private int positionX, positionY;
+    private ProdutoController produtoController = new ProdutoController();
 
     /**
      * Creates new form Dashboard
@@ -61,28 +70,28 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
+        lblEntradaOntem = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        lblSaidaOntem = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        lblSaidaHoje = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        lblEntradaHoje = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        lblEntradaMes = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
+        lblSaidaMes = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -457,10 +466,10 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Entrada");
 
-        jLabel19.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("0");
+        lblEntradaOntem.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblEntradaOntem.setForeground(new java.awt.Color(255, 255, 255));
+        lblEntradaOntem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEntradaOntem.setText("0");
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -469,7 +478,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblEntradaOntem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
@@ -477,7 +486,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(lblEntradaOntem, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -488,10 +497,10 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("Saída");
 
-        jLabel21.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("0");
+        lblSaidaOntem.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblSaidaOntem.setForeground(new java.awt.Color(255, 255, 255));
+        lblSaidaOntem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSaidaOntem.setText("0");
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -500,7 +509,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblSaidaOntem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
@@ -508,7 +517,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addComponent(jLabel20)
                 .addGap(11, 11, 11)
-                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblSaidaOntem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -569,10 +578,10 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("Saída");
 
-        jLabel23.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("0");
+        lblSaidaHoje.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblSaidaHoje.setForeground(new java.awt.Color(255, 255, 255));
+        lblSaidaHoje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSaidaHoje.setText("0");
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -581,7 +590,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblSaidaHoje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel15Layout.setVerticalGroup(
@@ -589,7 +598,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addComponent(jLabel22)
                 .addGap(11, 11, 11)
-                .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(lblSaidaHoje, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -600,10 +609,10 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("Entrada");
 
-        jLabel25.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setText("0");
+        lblEntradaHoje.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblEntradaHoje.setForeground(new java.awt.Color(255, 255, 255));
+        lblEntradaHoje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEntradaHoje.setText("0");
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -612,7 +621,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblEntradaHoje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel16Layout.setVerticalGroup(
@@ -620,7 +629,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblEntradaHoje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -681,10 +690,10 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel26.setText("Entrada");
 
-        jLabel27.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel27.setText("0");
+        lblEntradaMes.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblEntradaMes.setForeground(new java.awt.Color(255, 255, 255));
+        lblEntradaMes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEntradaMes.setText("0");
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -693,7 +702,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblEntradaMes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel17Layout.setVerticalGroup(
@@ -701,7 +710,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addComponent(jLabel26)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(lblEntradaMes, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -712,10 +721,10 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel28.setText("Saída");
 
-        jLabel29.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel29.setText("0");
+        lblSaidaMes.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblSaidaMes.setForeground(new java.awt.Color(255, 255, 255));
+        lblSaidaMes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSaidaMes.setText("0");
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -724,7 +733,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblSaidaMes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel18Layout.setVerticalGroup(
@@ -732,7 +741,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addComponent(jLabel28)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(lblSaidaMes, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -858,6 +867,11 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/available-updates-16.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1184,6 +1198,11 @@ public class Dashboard extends javax.swing.JFrame {
                 JOptionPane.INFORMATION_MESSAGE);           // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+       prencherLabel();
+        preencherTabela(produtoController.retornarTodosProdutos());
+    }//GEN-LAST:event_jLabel5MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1228,18 +1247,12 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1283,7 +1296,13 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable jTableProduto;
+    private javax.swing.JLabel lblEntradaHoje;
+    private javax.swing.JLabel lblEntradaMes;
+    private javax.swing.JLabel lblEntradaOntem;
     private javax.swing.JLabel lblMinimizar;
+    private javax.swing.JLabel lblSaidaHoje;
+    private javax.swing.JLabel lblSaidaMes;
+    private javax.swing.JLabel lblSaidaOntem;
     private javax.swing.JLabel lblSair;
     private javax.swing.JLabel lblSistemName;
     private static javax.swing.JLabel lblUserName;
@@ -1300,5 +1319,41 @@ public class Dashboard extends javax.swing.JFrame {
         this.setTitle(SystemMessage.SYSTEM_NAME + " - Sistema de Gestão de Estoque");
         lblSistemName.setText(SystemMessage.SYSTEM_NAME);
         lblUserName.setText(UsuarioSessao.getNomeFuncionario() + " " + UsuarioSessao.getApelidoFuncionario());
+        preencherTabela(produtoController.retornarTodosProdutos());
+        prencherLabel();
+    }
+
+    /**
+     *
+     * @param produtos
+     */
+    private void preencherTabela(List<com.dmz.stock.model.Produto> produtos) {
+        DefaultTableModel defaultTableModel = (DefaultTableModel) jTableProduto.getModel();
+        defaultTableModel.setNumRows(0);
+        int size = produtos.size();
+        for (int i = 0; i < size; i++) {
+            com.dmz.stock.model.Fornecedor fornecedor = new FornecedorProdutoController().retornarFornecedorPorProduto(produtos.get(i).getId());
+            
+            defaultTableModel.addRow(new Object[]{
+                (i + 1),
+                produtos.get(i).getNome(),
+                produtos.get(i).getDescricao(),
+                produtos.get(i).getCategoria(),
+                produtos.get(i).getQuantidade(),
+                produtos.get(i).getDataEntrada(),
+                fornecedor.getNomeFornecedor()
+            });
+        }
+
+    }
+
+    private void prencherLabel() {
+        int entradaOntem = produtoController.retornarProdutoPelaDataEntrada(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now().minusDays(1))).size();
+        int entradaHoje = produtoController.retornarProdutoPelaDataEntrada(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now())).size();
+        int entradaMes = produtoController.retornarProdutoPeloMesEntrada(LocalDate.now().getMonthValue()).size();
+
+        lblEntradaOntem.setText(String.valueOf(entradaOntem));
+        lblEntradaHoje.setText(String.valueOf(entradaHoje));
+        lblEntradaMes.setText(String.valueOf(entradaMes));
     }
 }

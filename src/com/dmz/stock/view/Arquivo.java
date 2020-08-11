@@ -1,8 +1,18 @@
 package com.dmz.stock.view;
 
+import com.dmz.stock.auxiliar.ConversorDateTime;
+import com.dmz.stock.auxiliar.ConversorValores;
+import com.dmz.stock.auxiliar.Expressoes;
+import com.dmz.stock.controller.FornecedorProdutoController;
+import com.dmz.stock.controller.ProdutoController;
 import configuracoes.SystemMessage;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.Document;
 
 /**
  *
@@ -11,6 +21,7 @@ import javax.swing.JOptionPane;
 public class Arquivo extends javax.swing.JFrame {
 
     private static final Arquivo INSTANCE = new Arquivo();
+    private ProdutoController produtoController = new ProdutoController();
 
     public static Arquivo getInstance() {
         return INSTANCE;
@@ -56,6 +67,8 @@ public class Arquivo extends javax.swing.JFrame {
         txtIdProdutoEntrada = new javax.swing.JTextField();
         txtNomeProdutoEntrada = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        txtCodigoBarras = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         lblEntradaPeriodo = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -207,16 +220,38 @@ public class Arquivo extends javax.swing.JFrame {
 
         jLabel33.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel33.setText("Código do Produto:");
+        jLabel33.setText("Código de barras:");
 
         txtIdProdutoEntrada.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txtIdProdutoEntrada.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIdProdutoEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIdProdutoEntradaKeyReleased(evt);
+            }
+        });
 
         txtNomeProdutoEntrada.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txtNomeProdutoEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeProdutoEntradaKeyReleased(evt);
+            }
+        });
 
         jLabel34.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(255, 255, 255));
         jLabel34.setText("Nome do Produto:");
+
+        jLabel38.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel38.setText("Código do Produto:");
+
+        txtCodigoBarras.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txtCodigoBarras.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCodigoBarras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoBarrasKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -250,12 +285,12 @@ public class Arquivo extends javax.swing.JFrame {
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jRadioButtonEntradaMesPassado)
                                     .addComponent(txtIdProdutoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel33))
+                                    .addComponent(jLabel38))
                                 .addGap(48, 48, 48)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel6Layout.createSequentialGroup()
                                         .addComponent(jRadioButtonEntradaMesAtual)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                                         .addComponent(jRadioButtonEntradaDiaHoje)
                                         .addGap(32, 32, 32)
                                         .addComponent(jRadioButtonEntradaOntem))
@@ -263,6 +298,10 @@ public class Arquivo extends javax.swing.JFrame {
                                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel34)
                                             .addComponent(txtNomeProdutoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(26, 26, 26)
+                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel33))
                                         .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(29, 29, 29))))
         );
@@ -296,13 +335,15 @@ public class Arquivo extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel33)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIdProdutoEntrada))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel38)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtIdProdutoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNomeProdutoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel34)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNomeProdutoEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)))
+                        .addComponent(jLabel33)))
                 .addContainerGap())
         );
 
@@ -325,11 +366,11 @@ public class Arquivo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome do Produto", "Descrição do Produto", "Categoria", "Data de Entrada", "Quantidade de Entrada", "Preço por unidade", "Valor total", "Por"
+                "#", "Código", "Nome do Produto", "Descrição do Produto", "Categoria", "Data de Entrada", "Quantidade de Entrada", "Preço por unidade", "Valor total", "Fornecedor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -340,8 +381,10 @@ public class Arquivo extends javax.swing.JFrame {
         jTableEntrada.setRowMargin(4);
         jScrollPane2.setViewportView(jTableEntrada);
         if (jTableEntrada.getColumnModel().getColumnCount() > 0) {
-            jTableEntrada.getColumnModel().getColumn(0).setMinWidth(100);
-            jTableEntrada.getColumnModel().getColumn(0).setMaxWidth(180);
+            jTableEntrada.getColumnModel().getColumn(0).setMinWidth(50);
+            jTableEntrada.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTableEntrada.getColumnModel().getColumn(1).setMinWidth(100);
+            jTableEntrada.getColumnModel().getColumn(1).setMaxWidth(180);
         }
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -400,7 +443,7 @@ public class Arquivo extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEntradaPeriodo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -750,16 +793,16 @@ public class Arquivo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void imprimirSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirSaidaActionPerformed
-  JOptionPane.showMessageDialog(this,
-                "Ops!.. O relatório estará disponivel assim que terminar a manutenção", 
+        JOptionPane.showMessageDialog(this,
+                "Ops!.. O relatório estará disponivel assim que terminar a manutenção",
                 SystemMessage.SYSTEM_NAME,
                 JOptionPane.INFORMATION_MESSAGE);        }//GEN-LAST:event_imprimirSaidaActionPerformed
 
     private void imprimirEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirEntradaActionPerformed
         JOptionPane.showMessageDialog(this,
-                "Ops!.. O relatório estará disponivel assim que terminar a manutenção", 
+                "Ops!.. O relatório estará disponivel assim que terminar a manutenção",
                 SystemMessage.SYSTEM_NAME,
-                JOptionPane.INFORMATION_MESSAGE);     
+                JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_imprimirEntradaActionPerformed
 
     private void jComboBoxMesEntradaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxMesEntradaMouseClicked
@@ -767,6 +810,14 @@ public class Arquivo extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxMesEntradaMouseClicked
 
     private void jComboBoxMesEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMesEntradaActionPerformed
+        int mes = jComboBoxMesEntrada.getSelectedIndex() + 1;
+        atualizarEntradaProduto(produtoController.retornarProdutoPeloMesEntrada(mes));
+
+        if (jTableEntrada.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum produto foi cadastrado no mês de " + jComboBoxMesEntrada.getSelectedItem(),
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jComboBoxMesEntradaActionPerformed
 
     private void jComboBoxMesEntradaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBoxMesEntradaKeyPressed
@@ -774,18 +825,43 @@ public class Arquivo extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxMesEntradaKeyPressed
 
     private void jRadioButtonEntradaMesPassadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEntradaMesPassadoActionPerformed
+        atualizarEntradaProduto(produtoController.retornarProdutoPeloMesEntrada(LocalDate.now().getMonthValue() - 1));
+
+        if (jTableEntrada.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum produto foi cadastrado no mês de " + LocalDate.now().getMonth().minus(1),
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jRadioButtonEntradaMesPassadoActionPerformed
 
     private void jRadioButtonEntradaMesAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEntradaMesAtualActionPerformed
-        // TODO add your handling code here:
+        atualizarEntradaProduto(produtoController.retornarProdutoPeloMesEntrada(LocalDate.now().getMonthValue()));
+
+        if (jTableEntrada.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum produto foi cadastrado no mês Actual " + LocalDate.now().getMonth(),
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jRadioButtonEntradaMesAtualActionPerformed
 
     private void jRadioButtonEntradaOntemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEntradaOntemActionPerformed
-        // TODO add your handling code here:
+        atualizarEntradaProduto(produtoController.retornarProdutoPelaDataEntrada(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now().minusDays(1))));
+
+        if (jTableEntrada.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum produto foi cadastrado no dia de hoje " + LocalDate.now().getDayOfWeek(),
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonEntradaOntemActionPerformed
 
     private void jRadioButtonEntradaDiaHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEntradaDiaHojeActionPerformed
-        // TODO add your handling code here:
+        atualizarEntradaProduto(produtoController.retornarProdutoPelaDataEntrada(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now())));
+
+        if (jTableEntrada.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum produto foi cadastrado no dia de Ontem",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jRadioButtonEntradaDiaHojeActionPerformed
 
     private void jComboBoxMesSaidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxMesSaidaMouseClicked
@@ -815,6 +891,19 @@ public class Arquivo extends javax.swing.JFrame {
     private void jRadioButtonSaidaHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSaidaHojeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonSaidaHojeActionPerformed
+
+    private void txtNomeProdutoEntradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeProdutoEntradaKeyReleased
+        atualizarEntradaProduto(produtoController.retornarProdutoPeloNome(txtNomeProdutoEntrada.getText()));        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeProdutoEntradaKeyReleased
+
+    private void txtCodigoBarrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoBarrasKeyReleased
+        atualizarEntradaProduto(produtoController.retornarProdutosPeloCodigoBarras(txtCodigoBarras.getText()));        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoBarrasKeyReleased
+
+    private void txtIdProdutoEntradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdProdutoEntradaKeyReleased
+        int idProduto = txtIdProdutoEntrada.getText().isEmpty() ? 1 : Integer.parseInt(txtIdProdutoEntrada.getText());
+        atualizarEntradaProduto(produtoController.retornarProdutosPeloId(idProduto));          // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdProdutoEntradaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -874,6 +963,7 @@ public class Arquivo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -900,6 +990,7 @@ public class Arquivo extends javax.swing.JFrame {
     private javax.swing.JTable jTableSaida;
     private javax.swing.JLabel lblEntradaPeriodo;
     private javax.swing.JLabel lblSaidaPeriodo;
+    private javax.swing.JTextField txtCodigoBarras;
     private javax.swing.JTextField txtIdProdutoEntrada;
     private javax.swing.JTextField txtIdProdutoSaida;
     private javax.swing.JTextField txtNomeProdutoEntrada;
@@ -910,5 +1001,47 @@ public class Arquivo extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         this.setIconImage(new ImageIcon(getClass().getResource(SystemMessage.IMAGE_URL)).getImage());
         this.setTitle(SystemMessage.SYSTEM_NAME + " - Arquivo de produtos da empresa");
+        atualizarEntradaProduto(produtoController.retornarTodosProdutos());
+
+        txtCodigoBarras.setDocument(new Expressoes.InternalClass());
+        txtNomeProdutoEntrada.setDocument(new Expressoes.InternalClass());
+        txtIdProdutoEntrada.setDocument(new Expressoes.InternalClassDigit());
     }
+
+    /*
+    =========================Entrada Produto ===========================
+     */
+    private void atualizarEntradaProduto(List<com.dmz.stock.model.Produto> produtos) {
+        DefaultTableModel defaultTableModel = (DefaultTableModel) jTableEntrada.getModel();
+        defaultTableModel.setNumRows(0);
+        int size = produtos.size();
+
+        for (int i = 0; i < size; i++) {
+            com.dmz.stock.model.Fornecedor fornecedor = new FornecedorProdutoController().retornarFornecedorPorProduto(produtos.get(i).getId());
+
+            defaultTableModel.addRow(new Object[]{
+                (i + 1),
+                produtos.get(i).getId(),
+                produtos.get(i).getNome(),
+                produtos.get(i).getDescricao(),
+                produtos.get(i).getCategoria(),
+                produtos.get(i).getDataEntrada(),
+                produtos.get(i).getQuantidade(),
+                produtos.get(i).getValorPorUnidade() + " MZN",
+                produtos.get(i).getValorTotal() + " MZN",
+                fornecedor.getNomeFornecedor()
+            });
+        }
+
+        double valor = 0;
+        for (int i = 0; i < jTableEntrada.getRowCount(); i++) {
+            valor += Double.parseDouble(jTableEntrada.getValueAt(i, 8).toString().replaceAll(" MZN", "").trim());
+        }
+        lblEntradaPeriodo.setText(ConversorValores.currencyMozambique(valor).replaceAll("MZN", "").trim() + " MZN");
+
+    }
+
+    /*
+    =========================Saída Produto ===========================
+     */
 }
