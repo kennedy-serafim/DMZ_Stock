@@ -9,11 +9,13 @@ import java.util.Date;
 public class Produto {
 
     private int id;
+    private String codigoBarras;
     private String nome;
     private String descricao;
     private String categoria;
     private int quantidade;
     private int quantidadePorCaixa;
+    private int quantidadeMinima;
     private Date dataValidade;
     private Date dataEntrada;
     private Date dataCompra;
@@ -26,6 +28,14 @@ public class Produto {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
     }
 
     public String getNome() {
@@ -108,9 +118,17 @@ public class Produto {
         this.valorPorUnidade = valorPorUnidade;
     }
 
+    public int getQuantidadeMinima() {
+        return quantidadeMinima;
+    }
+
+    public void setQuantidadeMinima(int quantidadeMinima) {
+        this.quantidadeMinima = quantidadeMinima;
+    }
+
     @Override
     public String toString() {
-        return "Produto{" + "id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", categoria=" + categoria + ", quantidade=" + quantidade + ", quantidadePorCaixa=" + quantidadePorCaixa + ", dataValidade=" + dataValidade + ", dataEntrada=" + dataEntrada + ", valorTotal=" + valorTotal + ", valorPorUnidade=" + valorPorUnidade + '}';
+        return "Produto{" + "id=" + id + ", codigoBarras=" + codigoBarras + ", nome=" + nome + ", descricao=" + descricao + ", categoria=" + categoria + ", quantidade=" + quantidade + ", quantidadePorCaixa=" + quantidadePorCaixa + ", quantidadeMinima=" + quantidadeMinima + ", dataValidade=" + dataValidade + ", dataEntrada=" + dataEntrada + ", dataCompra=" + dataCompra + ", valorTotal=" + valorTotal + ", valorPorUnidade=" + valorPorUnidade + '}';
     }
 
 }

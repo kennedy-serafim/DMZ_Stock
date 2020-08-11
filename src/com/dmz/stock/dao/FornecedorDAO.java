@@ -60,7 +60,7 @@ public class FornecedorDAO {
 
         try {
             ConnectionFactory.setPreparedStatement(CONNECTION.prepareStatement(SQL));
-          ConnectionFactory.getPreparedStatement().setString(1, fornecedor.getNUIT());
+            ConnectionFactory.getPreparedStatement().setString(1, fornecedor.getNUIT());
             ConnectionFactory.getPreparedStatement().setString(2, fornecedor.getCidadeFornecedor());
             ConnectionFactory.getPreparedStatement().setString(3, fornecedor.getNomeFornecedor());
             ConnectionFactory.getPreparedStatement().setString(4, fornecedor.getPais());
@@ -152,7 +152,7 @@ public class FornecedorDAO {
 
             while (ConnectionFactory.getResultSet().next()) {
                 fornecedor = new Fornecedor();
-               fornecedor.setIdFornecedor(ConnectionFactory.getResultSet().getLong(1));
+                fornecedor.setIdFornecedor(ConnectionFactory.getResultSet().getLong(1));
                 fornecedor.setNomeFornecedor(ConnectionFactory.getResultSet().getString(2));
                 fornecedor.setTipoProduto(ConnectionFactory.getResultSet().getString(3));
                 fornecedor.setPais(ConnectionFactory.getResultSet().getString(4));
@@ -223,7 +223,7 @@ public class FornecedorDAO {
 
             while (ConnectionFactory.getResultSet().next()) {
                 fornecedor = new Fornecedor();
-              fornecedor.setIdFornecedor(ConnectionFactory.getResultSet().getLong(1));
+                fornecedor.setIdFornecedor(ConnectionFactory.getResultSet().getLong(1));
                 fornecedor.setNomeFornecedor(ConnectionFactory.getResultSet().getString(2));
                 fornecedor.setTipoProduto(ConnectionFactory.getResultSet().getString(3));
                 fornecedor.setPais(ConnectionFactory.getResultSet().getString(4));

@@ -593,6 +593,7 @@ public class Fornecedor extends javax.swing.JDialog {
                         SystemMessage.SYSTEM_NAME, JOptionPane.ERROR_MESSAGE);
             }
         }
+        Produto.atualizarComboBox();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void txtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyReleased

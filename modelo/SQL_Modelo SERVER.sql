@@ -67,11 +67,13 @@ IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE name = 'produto')
 	BEGIN
 		CREATE TABLE produto(
 			id int primary key identity,
+			codigo_barras varchar(254) unique not null,
 			nome varchar(125) not null,
 			categoria varchar(125) not null,
-			descricacao varchar(255), 
-			quantidade_caixa int not null,
-			quantidade_unidade int,
+			descricao text, 
+			quantidade_caixa int not null default 1,
+			quantidade_unidade int default 1,
+			quantidade_minima int default 0,
 			valor_total decimal(10, 2) not null,
 			valor_unidade decimal(10, 2) not null,
 			data_validade date,
