@@ -44,8 +44,8 @@ public class ProdutoDAO {
             ConnectionFactory.getPreparedStatement().setInt(5, produto.getQuantidade());
             ConnectionFactory.getPreparedStatement().setInt(6, produto.getQuantidadePorCaixa());
             ConnectionFactory.getPreparedStatement().setInt(7, produto.getQuantidadeMinima());
-            ConnectionFactory.getPreparedStatement().setDouble(8, produto.getValorTotal());
-            ConnectionFactory.getPreparedStatement().setDouble(9, produto.getValorPorUnidade());
+            ConnectionFactory.getPreparedStatement().setBigDecimal(8, produto.getValorTotal());
+            ConnectionFactory.getPreparedStatement().setBigDecimal(9, produto.getValorPorUnidade());
             ConnectionFactory.getPreparedStatement().setDate(10, ConversorDateTime.utilDateToSQLDate(produto.getDataValidade()));
             ConnectionFactory.getPreparedStatement().setDate(11, ConversorDateTime.utilDateToSQLDate(produto.getDataCompra()));
 
@@ -85,8 +85,8 @@ public class ProdutoDAO {
                 produto.setQuantidade(ConnectionFactory.getResultSet().getInt(6));
                 produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(7));
                 produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(8));
-                produto.setValorTotal(ConnectionFactory.getResultSet().getDouble(9));
-                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getDouble(10));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(9));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(10));
                 produto.setDataValidade(ConnectionFactory.getResultSet().getDate(11));
                 produto.setDataCompra(ConnectionFactory.getResultSet().getDate(12));
                 produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(13));
@@ -99,6 +99,46 @@ public class ProdutoDAO {
         }
 
         return produtos;
+    }
+
+    /**
+     *
+     * @param codigoBarras
+     * @return
+     */
+    public Produto retornarProdutoPeloCodigoBarras(String codigoBarras) {
+        String SQL = SQL_SELECT + " AND codigo_barras = ?";
+        Produto produto = null;
+
+        try {
+            ConnectionFactory.setPreparedStatement(connection.prepareStatement(SQL));
+            ConnectionFactory.getPreparedStatement().setString(1, SoftDelete.DELETED.toString());
+            ConnectionFactory.getPreparedStatement().setString(2, codigoBarras);
+            ConnectionFactory.setResultSet(ConnectionFactory.getPreparedStatement().executeQuery());
+
+            while (ConnectionFactory.getResultSet().next()) {
+                produto = new Produto();
+                produto.setId(ConnectionFactory.getResultSet().getInt(1));
+                produto.setCodigoBarras(ConnectionFactory.getResultSet().getString(2));
+                produto.setNome(ConnectionFactory.getResultSet().getString(3));
+                produto.setCategoria(ConnectionFactory.getResultSet().getString(4));
+                produto.setDescricao(ConnectionFactory.getResultSet().getString(5));
+                produto.setQuantidade(ConnectionFactory.getResultSet().getInt(6));
+                produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(7));
+                produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(8));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(9));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(10));
+                produto.setDataValidade(ConnectionFactory.getResultSet().getDate(11));
+                produto.setDataCompra(ConnectionFactory.getResultSet().getDate(12));
+                produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(13));
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection();
+        }
+
+        return produto;
     }
 
     /**
@@ -127,8 +167,8 @@ public class ProdutoDAO {
                 produto.setQuantidade(ConnectionFactory.getResultSet().getInt(6));
                 produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(7));
                 produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(8));
-                produto.setValorTotal(ConnectionFactory.getResultSet().getDouble(9));
-                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getDouble(10));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(9));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(10));
                 produto.setDataValidade(ConnectionFactory.getResultSet().getDate(11));
                 produto.setDataCompra(ConnectionFactory.getResultSet().getDate(12));
                 produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(13));
@@ -170,8 +210,8 @@ public class ProdutoDAO {
                 produto.setQuantidade(ConnectionFactory.getResultSet().getInt(6));
                 produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(7));
                 produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(8));
-                produto.setValorTotal(ConnectionFactory.getResultSet().getDouble(9));
-                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getDouble(10));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(9));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(10));
                 produto.setDataValidade(ConnectionFactory.getResultSet().getDate(11));
                 produto.setDataCompra(ConnectionFactory.getResultSet().getDate(12));
                 produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(13));
@@ -213,8 +253,8 @@ public class ProdutoDAO {
                 produto.setQuantidade(ConnectionFactory.getResultSet().getInt(6));
                 produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(7));
                 produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(8));
-                produto.setValorTotal(ConnectionFactory.getResultSet().getDouble(9));
-                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getDouble(10));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(9));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(10));
                 produto.setDataValidade(ConnectionFactory.getResultSet().getDate(11));
                 produto.setDataCompra(ConnectionFactory.getResultSet().getDate(12));
                 produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(13));
@@ -255,8 +295,8 @@ public class ProdutoDAO {
                 produto.setQuantidade(ConnectionFactory.getResultSet().getInt(6));
                 produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(7));
                 produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(8));
-                produto.setValorTotal(ConnectionFactory.getResultSet().getDouble(9));
-                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getDouble(10));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(9));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(10));
                 produto.setDataValidade(ConnectionFactory.getResultSet().getDate(11));
                 produto.setDataCompra(ConnectionFactory.getResultSet().getDate(12));
                 produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(13));
@@ -295,8 +335,8 @@ public class ProdutoDAO {
                 produto.setQuantidade(ConnectionFactory.getResultSet().getInt(6));
                 produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(7));
                 produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(8));
-                produto.setValorTotal(ConnectionFactory.getResultSet().getDouble(9));
-                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getDouble(10));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(9));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(10));
                 produto.setDataValidade(ConnectionFactory.getResultSet().getDate(11));
                 produto.setDataCompra(ConnectionFactory.getResultSet().getDate(12));
                 produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(13));
@@ -337,8 +377,8 @@ public class ProdutoDAO {
                 produto.setQuantidade(ConnectionFactory.getResultSet().getInt(6));
                 produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(7));
                 produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(8));
-                produto.setValorTotal(ConnectionFactory.getResultSet().getDouble(9));
-                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getDouble(10));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(9));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(10));
                 produto.setDataValidade(ConnectionFactory.getResultSet().getDate(11));
                 produto.setDataCompra(ConnectionFactory.getResultSet().getDate(12));
                 produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(13));
@@ -379,8 +419,8 @@ public class ProdutoDAO {
                 produto.setQuantidade(ConnectionFactory.getResultSet().getInt(6));
                 produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(7));
                 produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(8));
-                produto.setValorTotal(ConnectionFactory.getResultSet().getDouble(9));
-                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getDouble(10));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(9));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(10));
                 produto.setDataValidade(ConnectionFactory.getResultSet().getDate(11));
                 produto.setDataCompra(ConnectionFactory.getResultSet().getDate(12));
                 produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(13));
@@ -419,8 +459,8 @@ public class ProdutoDAO {
                 produto.setQuantidade(ConnectionFactory.getResultSet().getInt(6));
                 produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(7));
                 produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(8));
-                produto.setValorTotal(ConnectionFactory.getResultSet().getDouble(9));
-                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getDouble(10));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(9));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(10));
                 produto.setDataValidade(ConnectionFactory.getResultSet().getDate(11));
                 produto.setDataCompra(ConnectionFactory.getResultSet().getDate(12));
                 produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(13));
@@ -460,8 +500,8 @@ public class ProdutoDAO {
                 produto.setQuantidade(ConnectionFactory.getResultSet().getInt(6));
                 produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(7));
                 produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(8));
-                produto.setValorTotal(ConnectionFactory.getResultSet().getDouble(9));
-                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getDouble(10));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(9));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(10));
                 produto.setDataValidade(ConnectionFactory.getResultSet().getDate(11));
                 produto.setDataCompra(ConnectionFactory.getResultSet().getDate(12));
                 produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(13));

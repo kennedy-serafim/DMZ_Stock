@@ -1,5 +1,6 @@
 package com.dmz.stock.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -19,8 +20,8 @@ public class Produto {
     private Date dataValidade;
     private Date dataEntrada;
     private Date dataCompra;
-    private double valorTotal;
-    private double valorPorUnidade;
+    private BigDecimal valorTotal;
+    private BigDecimal valorPorUnidade;
 
     public int getId() {
         return id;
@@ -102,19 +103,19 @@ public class Produto {
         this.dataCompra = dataCompra;
     }
 
-    public double getValorTotal() {
+    public BigDecimal getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(double valorTotal) {
+    public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
     }
 
-    public double getValorPorUnidade() {
+    public BigDecimal getValorPorUnidade() {
         return valorPorUnidade;
     }
 
-    public void setValorPorUnidade(double valorPorUnidade) {
+    public void setValorPorUnidade(BigDecimal valorPorUnidade) {
         this.valorPorUnidade = valorPorUnidade;
     }
 

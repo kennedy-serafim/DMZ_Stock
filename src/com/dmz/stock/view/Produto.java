@@ -1,25 +1,33 @@
 package com.dmz.stock.view;
 
+import com.dmz.stock.auxiliar.AuxiliarClass;
 import com.dmz.stock.auxiliar.ConversorDateTime;
 import com.dmz.stock.auxiliar.ConversorValores;
 import com.dmz.stock.auxiliar.Expressoes;
 import com.dmz.stock.controller.FornecedorController;
+import com.dmz.stock.controller.FornecedorProdutoController;
+import com.dmz.stock.controller.ProdutoController;
+import com.dmz.stock.model.Categorias;
 import configuracoes.SystemMessage;
+import java.awt.Cursor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author seraf
  */
 public class Produto extends javax.swing.JFrame {
-    
+
     private static final Produto INSTANCE = new Produto();
-    
+    ProdutoController produtoController = new ProdutoController();
+
     public static Produto getInstance() {
         Produto.atualizarComboBox();
+
         return INSTANCE;
     }
 
@@ -60,7 +68,6 @@ public class Produto extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtDataEntrada = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtCategoria = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         uJComboBoxFornecedor = new componentes.UJComboBox();
         lblAddFornecedor = new javax.swing.JLabel();
@@ -85,6 +92,7 @@ public class Produto extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jDateChooserValidade = new com.toedter.calendar.JDateChooser();
+        uJComboBoxCategoria = new componentes.UJComboBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -176,14 +184,6 @@ public class Produto extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Categoria do Produto:");
 
-        txtCategoria.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
-        txtCategoria.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        txtCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCategoriaActionPerformed(evt);
-            }
-        });
-
         jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Fornecedor do Produto:");
@@ -217,7 +217,7 @@ public class Produto extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Quantidade de produtos (CX):");
 
-        txtQuantidade.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+        txtQuantidade.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txtQuantidade.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtQuantidade.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtQuantidade.addActionListener(new java.awt.event.ActionListener() {
@@ -235,7 +235,7 @@ public class Produto extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Quantidade mínima:");
 
-        txtQuantidadeMinima.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+        txtQuantidadeMinima.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txtQuantidadeMinima.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtQuantidadeMinima.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtQuantidadeMinima.addActionListener(new java.awt.event.ActionListener() {
@@ -248,7 +248,7 @@ public class Produto extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Preço por caixa:");
 
-        txtPrecoCaixa.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+        txtPrecoCaixa.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txtPrecoCaixa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPrecoCaixa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtPrecoCaixa.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +266,7 @@ public class Produto extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Valor total em estoque:");
 
-        txtValorEstoque.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+        txtValorEstoque.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txtValorEstoque.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtValorEstoque.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtValorEstoque.setEnabled(false);
@@ -280,7 +280,7 @@ public class Produto extends javax.swing.JFrame {
         jLabel20.setText("Carregar...");
         jLabel20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        txtUnidadeCaixa.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+        txtUnidadeCaixa.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txtUnidadeCaixa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUnidadeCaixa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtUnidadeCaixa.addActionListener(new java.awt.event.ActionListener() {
@@ -302,7 +302,7 @@ public class Produto extends javax.swing.JFrame {
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("MZN");
 
-        txtValorCompra.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+        txtValorCompra.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txtValorCompra.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtValorCompra.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtValorCompra.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -336,18 +336,18 @@ public class Produto extends javax.swing.JFrame {
         jDateChooserValidade.setDateFormatString("dd - MM - yyyy");
         jDateChooserValidade.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
 
+        uJComboBoxCategoria.setAutocompletar(true);
+        uJComboBoxCategoria.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2)
-                    .addComponent(txtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
                     .addComponent(jLabel15)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -357,7 +357,11 @@ public class Produto extends javax.swing.JFrame {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel17))
-                        .addComponent(txtQuantidade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtQuantidade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(uJComboBoxCategoria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCodigoBarras, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -444,15 +448,15 @@ public class Produto extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel8)
-                                .addGap(19, 19, 19)
-                                .addComponent(lblAddFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(11, 11, 11)
+                                .addComponent(uJComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(uJComboBoxFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                                    .addComponent(txtCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))))
+                                    .addComponent(lblAddFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -622,11 +626,13 @@ public class Produto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        if (validarCampos() && verificarCodigoBarras()) {
+            registarProduto(dadosProduto());
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -670,16 +676,16 @@ public class Produto extends javax.swing.JFrame {
         // TODO add your handling code here:
         String quantidadeProduto = txtQuantidade.getText().isEmpty() ? "0" : txtQuantidade.getText();
         String valorTotalCompra = txtValorCompra.getText().isEmpty() ? "0" : ConversorValores.removerVirgula(txtValorCompra.getText());
-        
+
         BigDecimal valorPorCaixa = new BigDecimal("0");
-        
+
         try {
             if (Integer.parseInt(quantidadeProduto) != 0) {
                 valorPorCaixa = new BigDecimal(valorTotalCompra).divide(new BigDecimal(quantidadeProduto));
             }
         } catch (NumberFormatException e) {
         }
-        
+
         txtPrecoCaixa.setText(ConversorValores.currencyMozambique(
                 Double.parseDouble(valorPorCaixa.toString())).replaceAll("MZN", ""));
     }//GEN-LAST:event_txtValorCompraKeyReleased
@@ -687,10 +693,6 @@ public class Produto extends javax.swing.JFrame {
     private void txtPrecoCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoCaixaActionPerformed
         txtValorCompra.requestFocus();        // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecoCaixaActionPerformed
-
-    private void txtCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriaActionPerformed
-        uJComboBoxFornecedor.requestFocus();
-    }//GEN-LAST:event_txtCategoriaActionPerformed
 
     private void txtQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeActionPerformed
         txtQuantidadeMinima.requestFocus();        // TODO add your handling code here:
@@ -709,7 +711,7 @@ public class Produto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorCompraActionPerformed
 
     private void txtValorCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorCompraFocusLost
-        
+
         txtValorCompra.setText(ConversorValores.currencyMozambique(
                 Double.parseDouble(txtValorCompra.getText())).replaceAll("MZN", ""));
     }//GEN-LAST:event_txtValorCompraFocusLost
@@ -778,7 +780,6 @@ public class Produto extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblAddFornecedor;
     private javax.swing.JLabel lblImagem;
-    private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtCodigoBarras;
     private javax.swing.JTextField txtDataEntrada;
     private javax.swing.JTextArea txtDescricacao;
@@ -789,6 +790,7 @@ public class Produto extends javax.swing.JFrame {
     private javax.swing.JTextField txtUnidadeCaixa;
     private javax.swing.JTextField txtValorCompra;
     private javax.swing.JTextField txtValorEstoque;
+    private componentes.UJComboBox uJComboBoxCategoria;
     private static componentes.UJComboBox uJComboBoxFornecedor;
     private static componentes.UJComboBox uJComboBoxFornecedorTipoProduto;
     private static componentes.UJComboBox uJComboBoxIdFornecedor;
@@ -798,7 +800,7 @@ public class Produto extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         this.setIconImage(new ImageIcon(getClass().getResource(SystemMessage.IMAGE_URL)).getImage());
         this.setTitle(SystemMessage.SYSTEM_NAME + " - Entrada de Produtos");
-        
+
         uJComboBoxIdFornecedor.setVisible(false);
         txtDataEntrada.setText(ConversorDateTime.localDateToString(LocalDate.now()));
         txtQuantidade.setDocument(new Expressoes.InternalClassDigit());
@@ -807,22 +809,29 @@ public class Produto extends javax.swing.JFrame {
         txtPrecoCaixa.setDocument(new Expressoes.InternalClassCurrency());
         txtValorEstoque.setDocument(new Expressoes.InternalClassCurrency());
         txtValorCompra.setDocument(new Expressoes.InternalClassCurrency());
-        
+        txtCodigoBarras.setDocument(new Expressoes.InternalClassEmail());
+        txtNomeProduto.setDocument(new Expressoes());
+        txtDescricacao.setDocument(new Expressoes.InternalClassToUpperCase());
+
+        for (String categoria : new Categorias().getCategorias()) {
+            uJComboBoxCategoria.addItem(categoria);
+        }
+
     }
-    
+
     private void formatarData() {
         //Pegando a data atual e convertendo
         jDateChooserCompraProduto.setDate(
                 ConversorDateTime.localDateTimeToUtilDate(
                         LocalDateTime.now()));
-        
+
         jDateChooserValidade.setDate(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now()));
 
         //Colocando o limite minimo da data
         jDateChooserCompraProduto.setMinSelectableDate(
                 ConversorDateTime.localDateTimeToUtilDate(
                         LocalDateTime.now().minusDays(365)));
-        
+
         jDateChooserValidade.setMinSelectableDate(ConversorDateTime.localDateTimeToUtilDate(
                 LocalDateTime.now().minusDays(0))
         );
@@ -831,7 +840,7 @@ public class Produto extends javax.swing.JFrame {
         jDateChooserCompraProduto.setMaxSelectableDate(
                 ConversorDateTime.localDateTimeToUtilDate(
                         LocalDateTime.now().plusDays(0)));
-        
+
     }
 
     /**
@@ -841,7 +850,7 @@ public class Produto extends javax.swing.JFrame {
         uJComboBoxFornecedor.clear();
         uJComboBoxFornecedorTipoProduto.clear();
         uJComboBoxIdFornecedor.clear();
-        
+
         for (com.dmz.stock.model.Fornecedor fornecedor : FornecedorController.retornarTodosFornecedoresController()) {
             uJComboBoxFornecedor.addItem(fornecedor.getNomeFornecedor());
             uJComboBoxFornecedorTipoProduto.addItem(fornecedor.getTipoProduto());
@@ -855,18 +864,134 @@ public class Produto extends javax.swing.JFrame {
     private void calcularValorTotal() {
         String quantidadeProduto = txtQuantidade.getText().isEmpty() ? "0" : txtQuantidade.getText();
         String valorPorCaixa = txtPrecoCaixa.getText().isEmpty() ? "0" : ConversorValores.removerVirgula(txtPrecoCaixa.getText());
-        
+
         BigDecimal valorTotalCaixa = new BigDecimal("0");
-        
+
         try {
             valorTotalCaixa = new BigDecimal(valorPorCaixa)
                     .multiply(new BigDecimal(quantidadeProduto));
         } catch (NumberFormatException e) {
             System.err.println(e.getMessage());
         }
-        
+
         txtValorEstoque.setText(ConversorValores.currencyMozambique(
                 Double.parseDouble(valorTotalCaixa.toString())).replaceAll("MZN", ""));
-        
+    }
+
+    /**
+     *
+     * @return
+     */
+    private com.dmz.stock.model.Produto dadosProduto() {
+        com.dmz.stock.model.Produto produto = new com.dmz.stock.model.Produto();
+        produto.setCategoria(uJComboBoxCategoria.getSelectedObject().toString());
+        produto.setCodigoBarras(txtCodigoBarras.getText());
+        produto.setDataCompra(jDateChooserCompraProduto.getDate());
+        produto.setDataValidade(jDateChooserValidade.getDate());
+        produto.setDescricao(txtDescricacao.getText());
+        produto.setNome(txtNomeProduto.getText());
+        produto.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+        produto.setQuantidadeMinima(Integer.parseInt(txtQuantidadeMinima.getText()));
+        produto.setQuantidadePorCaixa(Integer.parseInt(txtUnidadeCaixa.getText()));
+        produto.setValorPorUnidade(new BigDecimal(ConversorValores.removerVirgula(txtPrecoCaixa.getText())));
+        produto.setValorTotal(new BigDecimal(ConversorValores.removerVirgula(txtValorCompra.getText())));
+
+        return produto;
+    }
+
+    /**
+     *
+     * @param produto
+     */
+    private void registarProduto(com.dmz.stock.model.Produto produto) {
+        int idProduto = produtoController.registarProduto(produto);
+        int idFornecedor = Integer.parseInt(uJComboBoxIdFornecedor.getSelectedItem().toString());
+
+        if (idProduto > 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Produto registado com sucesso no sistema",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.INFORMATION_MESSAGE);
+
+            new FornecedorProdutoController().criarFornecedorProduto(idFornecedor, idProduto);
+            AuxiliarClass.limparCampos(rootPane);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Lamentamos, mas ocorreu algum erro ao registar o Produto",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    SystemMessage.SUPPORT_TECH, SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    private boolean validarCampos() {
+        if (uJComboBoxFornecedor.getModel().getSize() == 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(this,
+                    "Nenhum fornecedor está cadastrado no sistema.\n Pretende cadastrar um fornecedor?",
+                    SystemMessage.SYSTEM_NAME,
+                    JOptionPane.YES_NO_OPTION);
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                new Fornecedor(this, rootPaneCheckingEnabled).setVisible(rootPaneCheckingEnabled);
+            }
+            return false;
+        } else if (txtCodigoBarras.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Digite o Código de Barras",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+            return false;
+        } else if (txtNomeProduto.getText().isEmpty() || txtNomeProduto.getText().length() < 2) {
+            JOptionPane.showMessageDialog(this,
+                    "Digite o nome do produto",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+            return false;
+        } else if (jDateChooserCompraProduto.getDate() == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Verifique a Data da compra do Produto",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+            return false;
+        } else if (jDateChooserValidade.getDate() == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Verifique a Data de válidade do Produto",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+            return false;
+        } else if (txtQuantidade.getText().isEmpty() || txtQuantidade.getText().equalsIgnoreCase("0")) {
+            JOptionPane.showMessageDialog(this,
+                    "A Quantidade de Produtos (CX) não pode ser negativa",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+            return false;
+        } else if (txtPrecoCaixa.getText().isEmpty() ||  txtPrecoCaixa.getText().equalsIgnoreCase("0.0")) {
+            JOptionPane.showMessageDialog(this,
+                    "O preço por caixa do produto não pode ser negativo",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+            return false;
+        } else if (txtValorCompra.getText().isEmpty() || txtValorCompra.getText().equalsIgnoreCase("0.0")) {
+            JOptionPane.showMessageDialog(this,
+                    "O valor total da compra do produto não pode ser negativo",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private boolean verificarCodigoBarras() {
+        com.dmz.stock.model.Produto produto = produtoController.retornarProdutoPeloCodigoBarras(txtCodigoBarras.getText());
+
+        if (produto != null) {
+            JOptionPane.showMessageDialog(this,
+                    "O código de barras do produto já está registado no sistema para o produto "
+                    + produto.getNome(),
+                    SystemMessage.SYSTEM_NAME, WIDTH);
+            return false;
+        }
+        return true;
     }
 }

@@ -102,8 +102,8 @@ public class FornecedorProdutoDAO {
                 produto.setQuantidade(ConnectionFactory.getResultSet().getInt(8));
                 produto.setQuantidadeMinima(ConnectionFactory.getResultSet().getInt(9));
                 produto.setQuantidadePorCaixa(ConnectionFactory.getResultSet().getInt(10));
-                produto.setValorTotal(ConnectionFactory.getResultSet().getDouble(11));
-                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getDouble(12));
+                produto.setValorTotal(ConnectionFactory.getResultSet().getBigDecimal(11));
+                produto.setValorPorUnidade(ConnectionFactory.getResultSet().getBigDecimal(12));
                 produto.setDataValidade(ConnectionFactory.getResultSet().getDate(13));
                 produto.setDataCompra(ConnectionFactory.getResultSet().getDate(14));
                 produto.setDataEntrada(ConnectionFactory.getResultSet().getDate(15));
