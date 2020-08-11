@@ -5,6 +5,7 @@ import com.dmz.stock.connection.ConnectionFactory;
 import com.dmz.stock.model.SoftDelete;
 import com.dmz.stock.model.Funcionario;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author seraf
  */
 public class FuncionarioDAO {
-    
+
     private final Connection connection = ConnectionFactory.getConnection();
 
     /**
@@ -28,9 +29,9 @@ public class FuncionarioDAO {
     public int criarFuncionario(Funcionario funcionario) throws ParseException {
         String SQL = "INSERT INTO [dbo].[funcionario] ([nome], [apelido], [outro_nome], [nascimento], [genero], [b_identidade], [nuit],[nacionalidade])"
                 + "     VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        
+
         try {
-            ConnectionFactory.setPreparedStatement(connection.prepareStatement(SQL,ConnectionFactory.getPreparedStatement().RETURN_GENERATED_KEYS));
+            ConnectionFactory.setPreparedStatement(connection.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS));
             ConnectionFactory.getPreparedStatement().setString(1, funcionario.getNome());
             ConnectionFactory.getPreparedStatement().setString(2, funcionario.getApelido());
             ConnectionFactory.getPreparedStatement().setString(3, funcionario.getOutroNome());
@@ -39,18 +40,18 @@ public class FuncionarioDAO {
             ConnectionFactory.getPreparedStatement().setString(6, funcionario.getbIdentidade());
             ConnectionFactory.getPreparedStatement().setString(7, funcionario.getNuit());
             ConnectionFactory.getPreparedStatement().setString(8, funcionario.getNacionalidade());
-            
+
             ConnectionFactory.getPreparedStatement().executeUpdate();
-            
-           funcionario.setId(ConnectionFactory.getLastInsertID(ConnectionFactory.getPreparedStatement()));
-            
+
+            funcionario.setId(ConnectionFactory.getLastInsertID(ConnectionFactory.getPreparedStatement()));
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             funcionario.setId(0);
         } finally {
             ConnectionFactory.closeConnection();
         }
-        
+
         return funcionario.getId();
     }
 
@@ -63,13 +64,13 @@ public class FuncionarioDAO {
         Funcionario funcionario = null;
         String SQL = "SELECT * FROM funcionario f "
                 + " WHERE f.id_funcionario = ? AND f.soft_delete NOT IN(?);";
-        
+
         try {
             ConnectionFactory.setPreparedStatement(connection.prepareStatement(SQL));
             ConnectionFactory.getPreparedStatement().setInt(1, id);
             ConnectionFactory.getPreparedStatement().setString(2, SoftDelete.DELETED.toString());
             ConnectionFactory.setResultSet(ConnectionFactory.getPreparedStatement().executeQuery());
-            
+
             while (ConnectionFactory.getResultSet().next()) {
                 funcionario = new Funcionario();
                 funcionario.setId(ConnectionFactory.getResultSet().getInt(1));
@@ -82,13 +83,13 @@ public class FuncionarioDAO {
                 funcionario.setNuit(ConnectionFactory.getResultSet().getString(8));
                 funcionario.setNacionalidade(ConnectionFactory.getResultSet().getString(9));
             }
-            
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
             ConnectionFactory.closeConnection();
         }
-        
+
         return funcionario;
     }
 
@@ -101,12 +102,12 @@ public class FuncionarioDAO {
         List<Funcionario> funcionarios = new ArrayList<>();
         String SQL = "SELECT * FROM funcionario f "
                 + " WHERE f.soft_delete NOT IN(?);";
-        
+
         try {
             ConnectionFactory.setPreparedStatement(connection.prepareStatement(SQL));
             ConnectionFactory.getPreparedStatement().setString(1, SoftDelete.DELETED.toString());
             ConnectionFactory.setResultSet(ConnectionFactory.getPreparedStatement().executeQuery());
-            
+
             while (ConnectionFactory.getResultSet().next()) {
                 funcionario = new Funcionario();
                 funcionario.setId(ConnectionFactory.getResultSet().getInt(1));
@@ -118,16 +119,16 @@ public class FuncionarioDAO {
                 funcionario.setbIdentidade(ConnectionFactory.getResultSet().getString(7));
                 funcionario.setNuit(ConnectionFactory.getResultSet().getString(8));
                 funcionario.setNacionalidade(ConnectionFactory.getResultSet().getString(9));
-                
+
                 funcionarios.add(funcionario);
             }
-            
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
             ConnectionFactory.closeConnection();
         }
-        
+
         return funcionarios;
     }
 
@@ -141,13 +142,13 @@ public class FuncionarioDAO {
         List<Funcionario> funcionarios = new ArrayList<>();
         String SQL = "SELECT * FROM funcionario f "
                 + " WHERE f.soft_delete NOT IN(?) AND f.nome LIKE ?;";
-        
+
         try {
             ConnectionFactory.setPreparedStatement(connection.prepareStatement(SQL));
             ConnectionFactory.getPreparedStatement().setString(1, SoftDelete.DELETED.toString());
             ConnectionFactory.getPreparedStatement().setString(2, nomeFuncionario + "%");
             ConnectionFactory.setResultSet(ConnectionFactory.getPreparedStatement().executeQuery());
-            
+
             while (ConnectionFactory.getResultSet().next()) {
                 funcionario = new Funcionario();
                 funcionario.setId(ConnectionFactory.getResultSet().getInt(1));
@@ -159,16 +160,16 @@ public class FuncionarioDAO {
                 funcionario.setbIdentidade(ConnectionFactory.getResultSet().getString(7));
                 funcionario.setNuit(ConnectionFactory.getResultSet().getString(8));
                 funcionario.setNacionalidade(ConnectionFactory.getResultSet().getString(9));
-                
+
                 funcionarios.add(funcionario);
             }
-            
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
             ConnectionFactory.closeConnection();
         }
-        
+
         return funcionarios;
     }
 
@@ -180,12 +181,12 @@ public class FuncionarioDAO {
     public int apagarFuncionario(int idFuncionario) {
         String SQL = "UPDATE [dbo].[funcionario]  SET soft_delete = ? , deleted_at = getdate() "
                 + " WHERE id = ?";
-        
+
         try {
             ConnectionFactory.setPreparedStatement(connection.prepareStatement(SQL));
             ConnectionFactory.getPreparedStatement().setString(1, SoftDelete.DELETED.toString());
             ConnectionFactory.getPreparedStatement().setInt(2, idFuncionario);
-            
+
             return ConnectionFactory.getPreparedStatement().executeUpdate();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -203,22 +204,22 @@ public class FuncionarioDAO {
     public boolean getFuncionarioByNuitDAO(String nuit) {
         String SQL = "SELECT * FROM funcionario f "
                 + " WHERE f.soft_delete NOT IN(?) AND f.nuit = ?;";
-        
+
         try {
             ConnectionFactory.setPreparedStatement(connection.prepareStatement(SQL));
             ConnectionFactory.getPreparedStatement().setString(1, SoftDelete.DELETED.toString());
             ConnectionFactory.getPreparedStatement().setString(2, nuit);
             ConnectionFactory.setResultSet(ConnectionFactory.getPreparedStatement().executeQuery());
-            
+
             return ConnectionFactory.getResultSet().next();
-            
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
         } finally {
             ConnectionFactory.closeConnection();
         }
-        
+
     }
 
     /**
@@ -229,15 +230,15 @@ public class FuncionarioDAO {
     public boolean getFuncionarioByBilheteIdentidadeController(String bilheteI) {
         String SQL = "SELECT * FROM funcionario f "
                 + " WHERE f.soft_delete NOT IN(?) AND f.b_identidade = ?;";
-        
+
         try {
             ConnectionFactory.setPreparedStatement(connection.prepareStatement(SQL));
             ConnectionFactory.getPreparedStatement().setString(1, SoftDelete.DELETED.toString());
             ConnectionFactory.getPreparedStatement().setString(2, bilheteI);
             ConnectionFactory.setResultSet(ConnectionFactory.getPreparedStatement().executeQuery());
-            
+
             return ConnectionFactory.getResultSet().next();
-            
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
@@ -245,7 +246,7 @@ public class FuncionarioDAO {
             ConnectionFactory.closeConnection();
         }
     }
-    
+
     public static void main(String[] args) throws ParseException {
         FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         Funcionario funcionario = new Funcionario();

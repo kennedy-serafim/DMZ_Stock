@@ -1,13 +1,18 @@
 package com.dmz.stock.view;
 
+import configuracoes.SystemMessage;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author seraf
  */
 public class Estoque extends javax.swing.JFrame {
+    
     private static final Estoque INSTANCE = new Estoque();
     
-    public static Estoque getInstance(){
+    public static Estoque getInstance() {
         return INSTANCE;
     }
 
@@ -16,6 +21,7 @@ public class Estoque extends javax.swing.JFrame {
      */
     private Estoque() {
         initComponents();
+        configuracoes();
     }
 
     /**
@@ -27,28 +33,408 @@ public class Estoque extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        radioGroup = new javax.swing.ButtonGroup();
+        checkGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jComboBoxMesEntrada = new javax.swing.JComboBox();
+        jLabel16 = new javax.swing.JLabel();
+        jDateChooserEntradaFinal = new com.toedter.calendar.JDateChooser();
+        jLabel17 = new javax.swing.JLabel();
+        jDateChooserEntradaInicial = new com.toedter.calendar.JDateChooser();
+        jLabel18 = new javax.swing.JLabel();
+        btnPesquisarEntrada = new javax.swing.JButton();
+        jLabel32 = new javax.swing.JLabel();
+        jRadioButtonEntradaMesPassado = new javax.swing.JRadioButton();
+        jRadioButtonEntradaMesAtual = new javax.swing.JRadioButton();
+        jRadioButtonEntradaOntem = new javax.swing.JRadioButton();
+        jRadioButtonEntradaDiaHoje = new javax.swing.JRadioButton();
+        jLabel33 = new javax.swing.JLabel();
+        txtIdProdutoEntrada = new javax.swing.JTextField();
+        txtNomeProdutoEntrada = new javax.swing.JTextField();
+        jLabel34 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jLabel15 = new javax.swing.JLabel();
+        lblEntradaPeriodo = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableEntrada = new javax.swing.JTable();
+        imprimirEntrada = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        lblEntradaPeriodo1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel6.setBackground(new java.awt.Color(26, 118, 141));
+
+        jLabel14.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Entradas no Mês de:");
+
+        jComboBoxMesEntrada.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jComboBoxMesEntrada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
+        jComboBoxMesEntrada.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBoxMesEntrada.setFocusable(false);
+        jComboBoxMesEntrada.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxMesEntradaMouseClicked(evt);
+            }
+        });
+        jComboBoxMesEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxMesEntradaActionPerformed(evt);
+            }
+        });
+        jComboBoxMesEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBoxMesEntradaKeyPressed(evt);
+            }
+        });
+
+        jLabel16.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel16.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Data final:");
+
+        jDateChooserEntradaFinal.setDateFormatString("dd - MM - yyyy");
+        jDateChooserEntradaFinal.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+
+        jLabel17.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Entradas entre datas:");
+
+        jDateChooserEntradaInicial.setDateFormatString("dd - MM - yyyy");
+        jDateChooserEntradaInicial.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+
+        jLabel18.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel18.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("até");
+
+        btnPesquisarEntrada.setBackground(new java.awt.Color(255, 255, 255));
+        btnPesquisarEntrada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/search-8-16.png"))); // NOI18N
+
+        jLabel32.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel32.setText("Selecione o Outro mecanismo de Pesquisa:");
+
+        jRadioButtonEntradaMesPassado.setBackground(new java.awt.Color(26, 118, 141));
+        radioGroup.add(jRadioButtonEntradaMesPassado);
+        jRadioButtonEntradaMesPassado.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jRadioButtonEntradaMesPassado.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonEntradaMesPassado.setText("Entradas do Mês Passado");
+        jRadioButtonEntradaMesPassado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonEntradaMesPassado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEntradaMesPassadoActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonEntradaMesAtual.setBackground(new java.awt.Color(26, 118, 141));
+        radioGroup.add(jRadioButtonEntradaMesAtual);
+        jRadioButtonEntradaMesAtual.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jRadioButtonEntradaMesAtual.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonEntradaMesAtual.setText("Entradas do Mês Actual");
+        jRadioButtonEntradaMesAtual.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonEntradaMesAtual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEntradaMesAtualActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonEntradaOntem.setBackground(new java.awt.Color(26, 118, 141));
+        radioGroup.add(jRadioButtonEntradaOntem);
+        jRadioButtonEntradaOntem.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jRadioButtonEntradaOntem.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonEntradaOntem.setText("Entradas do dia de Ontem");
+        jRadioButtonEntradaOntem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonEntradaOntem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEntradaOntemActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonEntradaDiaHoje.setBackground(new java.awt.Color(26, 118, 141));
+        radioGroup.add(jRadioButtonEntradaDiaHoje);
+        jRadioButtonEntradaDiaHoje.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jRadioButtonEntradaDiaHoje.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonEntradaDiaHoje.setText("Entradas do dia de Hoje");
+        jRadioButtonEntradaDiaHoje.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonEntradaDiaHoje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEntradaDiaHojeActionPerformed(evt);
+            }
+        });
+
+        jLabel33.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel33.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel33.setText("Código do Produto:");
+
+        txtIdProdutoEntrada.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txtIdProdutoEntrada.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        txtNomeProdutoEntrada.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+
+        jLabel34.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel34.setText("Nome do Produto:");
+
+        jCheckBox1.setBackground(new java.awt.Color(26, 118, 141));
+        checkGroup.add(jCheckBox1);
+        jCheckBox1.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox1.setText("Em falta no estoque");
+        jCheckBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jCheckBox2.setBackground(new java.awt.Color(26, 118, 141));
+        checkGroup.add(jCheckBox2);
+        jCheckBox2.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBox2.setText("Estoque mínimo");
+        jCheckBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxMesEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jDateChooserEntradaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jDateChooserEntradaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPesquisarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel32)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtIdProdutoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jRadioButtonEntradaMesPassado)
+                                    .addComponent(jLabel33))
+                                .addGap(27, 27, 27)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel34)
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                                .addComponent(jRadioButtonEntradaMesAtual)
+                                                .addGap(44, 44, 44)
+                                                .addComponent(jRadioButtonEntradaOntem)
+                                                .addGap(54, 54, 54))
+                                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                                .addComponent(txtNomeProdutoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jCheckBox2)
+                                                .addGap(18, 18, 18)))
+                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jRadioButtonEntradaDiaHoje)
+                                            .addComponent(jCheckBox1))))))
+                        .addGap(0, 76, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(jLabel17)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jDateChooserEntradaInicial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(jLabel14)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jComboBoxMesEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jDateChooserEntradaFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnPesquisarEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonEntradaMesPassado)
+                    .addComponent(jRadioButtonEntradaDiaHoje)
+                    .addComponent(jRadioButtonEntradaOntem)
+                    .addComponent(jRadioButtonEntradaMesAtual))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33)
+                    .addComponent(jLabel34))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIdProdutoEntrada)
+                    .addComponent(txtNomeProdutoEntrada)
+                    .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox1))
+                .addGap(25, 25, 25))
+        );
+
+        jLabel15.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jLabel15.setText("Entradas no Periodo:");
+
+        lblEntradaPeriodo.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        lblEntradaPeriodo.setText("0.0 MZN");
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        jTableEntrada.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
+        jTableEntrada.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Nome do Produto", "Descrição do Produto", "Categoria", "Data de Entrada", "Data de Válidade", "Quantidade em Estoque", "Quantidade mínima", "Preço por unidade", "Valor total", "Por"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableEntrada.setRowHeight(24);
+        jTableEntrada.setRowMargin(4);
+        jScrollPane2.setViewportView(jTableEntrada);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 2420, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(jPanel8);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        imprimirEntrada.setBackground(new java.awt.Color(255, 255, 255));
+        imprimirEntrada.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        imprimirEntrada.setForeground(new java.awt.Color(0, 153, 255));
+        imprimirEntrada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/printer-4-24.png"))); // NOI18N
+        imprimirEntrada.setText("Imprimir");
+        imprimirEntrada.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        imprimirEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirEntradaActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jLabel19.setText("Valor em Estoque:");
+
+        lblEntradaPeriodo1.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        lblEntradaPeriodo1.setText("0.0 MZN");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblEntradaPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblEntradaPeriodo1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(imprimirEntrada)
+                .addContainerGap())
+            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEntradaPeriodo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel15)
+                    .addComponent(imprimirEntrada)
+                    .addComponent(lblEntradaPeriodo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 854, Short.MAX_VALUE)
+            .addGap(0, 1027, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 601, Short.MAX_VALUE)
+            .addGap(0, 613, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 3, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -57,6 +443,41 @@ public class Estoque extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jComboBoxMesEntradaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxMesEntradaMouseClicked
+
+    }//GEN-LAST:event_jComboBoxMesEntradaMouseClicked
+
+    private void jComboBoxMesEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMesEntradaActionPerformed
+
+    }//GEN-LAST:event_jComboBoxMesEntradaActionPerformed
+
+    private void jComboBoxMesEntradaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBoxMesEntradaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxMesEntradaKeyPressed
+
+    private void jRadioButtonEntradaMesPassadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEntradaMesPassadoActionPerformed
+
+    }//GEN-LAST:event_jRadioButtonEntradaMesPassadoActionPerformed
+
+    private void jRadioButtonEntradaMesAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEntradaMesAtualActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonEntradaMesAtualActionPerformed
+
+    private void jRadioButtonEntradaOntemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEntradaOntemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonEntradaOntemActionPerformed
+
+    private void jRadioButtonEntradaDiaHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEntradaDiaHojeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonEntradaDiaHojeActionPerformed
+
+    private void imprimirEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirEntradaActionPerformed
+        JOptionPane.showMessageDialog(this,
+            "Ops!.. O relatório estará disponivel assim que terminar a manutenção",
+            SystemMessage.SYSTEM_NAME,
+            JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_imprimirEntradaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -95,6 +516,45 @@ public class Estoque extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPesquisarEntrada;
+    private javax.swing.ButtonGroup checkGroup;
+    private javax.swing.JButton imprimirEntrada;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JComboBox jComboBoxMesEntrada;
+    private com.toedter.calendar.JDateChooser jDateChooserEntradaFinal;
+    private com.toedter.calendar.JDateChooser jDateChooserEntradaInicial;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JRadioButton jRadioButtonEntradaDiaHoje;
+    private javax.swing.JRadioButton jRadioButtonEntradaMesAtual;
+    private javax.swing.JRadioButton jRadioButtonEntradaMesPassado;
+    private javax.swing.JRadioButton jRadioButtonEntradaOntem;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableEntrada;
+    private javax.swing.JLabel lblEntradaPeriodo;
+    private javax.swing.JLabel lblEntradaPeriodo1;
+    private javax.swing.ButtonGroup radioGroup;
+    private javax.swing.JTextField txtIdProdutoEntrada;
+    private javax.swing.JTextField txtNomeProdutoEntrada;
     // End of variables declaration//GEN-END:variables
+
+    private void configuracoes() {
+        this.setIconImage(new ImageIcon(getClass().getResource(SystemMessage.IMAGE_URL)).getImage());
+        this.setLocationRelativeTo(this);
+        this.setTitle(SystemMessage.SYSTEM_NAME + " - Produtos em estoque");
+    }
 }

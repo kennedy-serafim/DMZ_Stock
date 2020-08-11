@@ -123,9 +123,30 @@ IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'fornecedor_produto')
 		);
 	END;
 
+IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE name = 'fornecedor_telefone')
+	BEGIN
+		CREATE TABLE fornecedor_telefone(
+			id_fornecedor int not null,
+			telefone varchar(75) not null unique,
+			FOREIGN KEY (id_fornecedor) REFERENCES fornecedor (id) 
+				ON DELETE CASCADE 
+				ON UPDATE CASCADE
+
+		);
+	END;
+ 
+IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE name = 'fornecedor_email')
+	BEGIN
+		CREATE TABLE fornecedor_email(
+			id_fornecedor int not null,
+			email varchar(75) not null unique,
+			FOREIGN KEY (id_fornecedor) REFERENCES fornecedor (id)
+				ON DELETE CASCADE 
+				ON UPDATE CASCADE
+		);
+	END;
 
 -- Relações
-USE dmz_stock;
 
 ALTER TABLE dbo.funcionario_email ADD  FOREIGN KEY (id_funcionario) REFERENCES funcionario (id)
 ON DELETE CASCADE
@@ -159,4 +180,21 @@ ON UPDATE CASCADE;
 ALTER TABLE dbo.saida_produto ADD FOREIGN KEY (id_usuario)  REFERENCES usuario(id_funcionario)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
--- 
+
+--
+
+-- FAKE DATA [TESTE]
+INSERT INTO dbo.funcionario(
+	 nome, apelido, outro_nome, nascimento, genero, b_identidade, nuit, nacionalidade 
+)VALUES(
+	'DMZ', 'SOFTWARE', '', '2020-08-05', 'Masculino', '11112222333 J', '111 222 333', 'Moçambicana'
+);
+
+INSERT INTO usuario(
+	id_funcionario, username, password, tipo_usuario, status
+) VALUES(
+	1, 'SQL_SERVER', '830EF117E1386DFC8C1C22201C5450B6D9EF60AD6FBBDFDACC5CB923C0F799C9', 'Administrador', 'Activo'
+);
+
+SELECT * FROM funcionario;
+SELECT * FROM usuario;
