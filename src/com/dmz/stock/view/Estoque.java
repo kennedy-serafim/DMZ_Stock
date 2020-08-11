@@ -1,8 +1,18 @@
 package com.dmz.stock.view;
 
+import com.dmz.stock.auxiliar.ConversorDateTime;
+import com.dmz.stock.auxiliar.ConversorValores;
+import com.dmz.stock.auxiliar.Expressoes;
+import com.dmz.stock.controller.FornecedorProdutoController;
+import com.dmz.stock.controller.ProdutoController;
 import configuracoes.SystemMessage;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -11,6 +21,7 @@ import javax.swing.JOptionPane;
 public class Estoque extends javax.swing.JFrame {
     
     private static final Estoque INSTANCE = new Estoque();
+    private ProdutoController produtoController = new ProdutoController();
     
     public static Estoque getInstance() {
         return INSTANCE;
@@ -66,7 +77,7 @@ public class Estoque extends javax.swing.JFrame {
         jTableEntrada = new javax.swing.JTable();
         imprimirEntrada = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
-        lblEntradaPeriodo1 = new javax.swing.JLabel();
+        lblValorEstoque = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -185,8 +196,18 @@ public class Estoque extends javax.swing.JFrame {
 
         txtIdProdutoEntrada.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txtIdProdutoEntrada.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIdProdutoEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIdProdutoEntradaKeyReleased(evt);
+            }
+        });
 
         txtNomeProdutoEntrada.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txtNomeProdutoEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeProdutoEntradaKeyReleased(evt);
+            }
+        });
 
         jLabel34.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(255, 255, 255));
@@ -198,6 +219,11 @@ public class Estoque extends javax.swing.JFrame {
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setText("Em falta no estoque");
         jCheckBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         jCheckBox2.setBackground(new java.awt.Color(26, 118, 141));
         checkGroup.add(jCheckBox2);
@@ -205,6 +231,11 @@ public class Estoque extends javax.swing.JFrame {
         jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox2.setText("Estoque mínimo");
         jCheckBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -320,11 +351,11 @@ public class Estoque extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome do Produto", "Descrição do Produto", "Categoria", "Data de Entrada", "Data de Válidade", "Quantidade em Estoque", "Quantidade mínima", "Preço por unidade", "Valor total", "Por"
+                "#", "Código", "Nome do Produto", "Descrição do Produto", "Categoria", "Data de Entrada", "Data de Válidade", "Quantidade em Estoque", "Quantidade mínima", "Preço por unidade", "Valor total", "Fornecedor", "Código de Barras"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -334,6 +365,10 @@ public class Estoque extends javax.swing.JFrame {
         jTableEntrada.setRowHeight(24);
         jTableEntrada.setRowMargin(4);
         jScrollPane2.setViewportView(jTableEntrada);
+        if (jTableEntrada.getColumnModel().getColumnCount() > 0) {
+            jTableEntrada.getColumnModel().getColumn(0).setMinWidth(50);
+            jTableEntrada.getColumnModel().getColumn(0).setMaxWidth(50);
+        }
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -376,8 +411,8 @@ public class Estoque extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         jLabel19.setText("Valor em Estoque:");
 
-        lblEntradaPeriodo1.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        lblEntradaPeriodo1.setText("0.0 MZN");
+        lblValorEstoque.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        lblValorEstoque.setText("0.0 MZN");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -391,7 +426,7 @@ public class Estoque extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblEntradaPeriodo1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblValorEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(imprimirEntrada)
                 .addContainerGap())
@@ -407,7 +442,7 @@ public class Estoque extends javax.swing.JFrame {
                     .addComponent(lblEntradaPeriodo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel15)
                     .addComponent(imprimirEntrada)
-                    .addComponent(lblEntradaPeriodo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblValorEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel19))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -449,7 +484,14 @@ public class Estoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxMesEntradaMouseClicked
 
     private void jComboBoxMesEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMesEntradaActionPerformed
-
+        int mes = jComboBoxMesEntrada.getSelectedIndex() + 1;
+        atualizarEntradaProduto(produtoController.retornarProdutoPeloMesEntrada(mes));
+        
+        if (jTableEntrada.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum produto foi cadastrado no mês de " + jComboBoxMesEntrada.getSelectedItem(),
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jComboBoxMesEntradaActionPerformed
 
     private void jComboBoxMesEntradaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBoxMesEntradaKeyPressed
@@ -457,27 +499,78 @@ public class Estoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxMesEntradaKeyPressed
 
     private void jRadioButtonEntradaMesPassadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEntradaMesPassadoActionPerformed
-
+        atualizarEntradaProduto(produtoController.retornarProdutoPeloMesEntrada(LocalDate.now().getMonthValue() - 1));
+        
+        if (jTableEntrada.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum produto foi cadastrado no mês de " + LocalDate.now().getMonth().minus(1),
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jRadioButtonEntradaMesPassadoActionPerformed
 
     private void jRadioButtonEntradaMesAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEntradaMesAtualActionPerformed
-        // TODO add your handling code here:
+        atualizarEntradaProduto(produtoController.retornarProdutoPeloMesEntrada(LocalDate.now().getMonthValue()));
+        
+        if (jTableEntrada.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum produto foi cadastrado no mês Actual " + LocalDate.now().getMonth(),
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonEntradaMesAtualActionPerformed
 
     private void jRadioButtonEntradaOntemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEntradaOntemActionPerformed
-        // TODO add your handling code here:
+        atualizarEntradaProduto(produtoController.retornarProdutoPelaDataEntrada(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now().minusDays(1))));
+        
+        if (jTableEntrada.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum produto foi cadastrado no dia de Ontem",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonEntradaOntemActionPerformed
 
     private void jRadioButtonEntradaDiaHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEntradaDiaHojeActionPerformed
-        // TODO add your handling code here:
+        atualizarEntradaProduto(produtoController.retornarProdutoPelaDataEntrada(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now())));
+        
+        if (jTableEntrada.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum produto foi cadastrado no dia de hoje " + LocalDate.now().getDayOfWeek(),
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+        }             // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonEntradaDiaHojeActionPerformed
 
     private void imprimirEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirEntradaActionPerformed
         JOptionPane.showMessageDialog(this,
-            "Ops!.. O relatório estará disponivel assim que terminar a manutenção",
-            SystemMessage.SYSTEM_NAME,
-            JOptionPane.INFORMATION_MESSAGE);
+                "Ops!.. O relatório estará disponivel assim que terminar a manutenção",
+                SystemMessage.SYSTEM_NAME,
+                JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_imprimirEntradaActionPerformed
+
+    private void txtIdProdutoEntradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdProdutoEntradaKeyReleased
+        int idProduto = txtIdProdutoEntrada.getText().isEmpty() ? 1 : Integer.parseInt(txtIdProdutoEntrada.getText());
+        atualizarEntradaProduto(produtoController.retornarProdutosPeloId(idProduto));              // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdProdutoEntradaKeyReleased
+
+    private void txtNomeProdutoEntradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeProdutoEntradaKeyReleased
+        atualizarEntradaProduto(produtoController.retornarProdutoPeloNome(txtNomeProdutoEntrada.getText()));           // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeProdutoEntradaKeyReleased
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        atualizarEntradaProduto(produtoController.retornarProdutoPorEstoqueMinimo());
+        if (jTableEntrada.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum produto está com o estoque minimo",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+        } // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        atualizarEntradaProduto(produtoController.retornarProdutoPelaQuantidade(0));
+        if (jTableEntrada.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum produto está em falta no estoque",
+                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+        } // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -508,10 +601,8 @@ public class Estoque extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Estoque().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Estoque().setVisible(true);
         });
     }
 
@@ -546,7 +637,7 @@ public class Estoque extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableEntrada;
     private javax.swing.JLabel lblEntradaPeriodo;
-    private javax.swing.JLabel lblEntradaPeriodo1;
+    private javax.swing.JLabel lblValorEstoque;
     private javax.swing.ButtonGroup radioGroup;
     private javax.swing.JTextField txtIdProdutoEntrada;
     private javax.swing.JTextField txtNomeProdutoEntrada;
@@ -556,5 +647,55 @@ public class Estoque extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon(getClass().getResource(SystemMessage.IMAGE_URL)).getImage());
         this.setLocationRelativeTo(this);
         this.setTitle(SystemMessage.SYSTEM_NAME + " - Produtos em estoque");
+        
+        txtNomeProdutoEntrada.setDocument(new Expressoes.InternalClass());
+        txtIdProdutoEntrada.setDocument(new Expressoes.InternalClassDigit());
+        
+        atualizarEntradaProduto(produtoController.retornarTodosProdutos());
+        
+        BigDecimal valorEstoque = new BigDecimal("0");
+        for (com.dmz.stock.model.Produto produto : produtoController.retornarTodosProdutos()) {
+            //  valorEstoque.plus(produto.getValorTotal());
+            valorEstoque.add(produto.getValorTotal());
+            
+        }
+        
+        lblValorEstoque.setText(valorEstoque.toString());
+    }
+
+    /**
+     *
+     * @param produtos
+     */
+    private void atualizarEntradaProduto(List<com.dmz.stock.model.Produto> produtos) {
+        DefaultTableModel defaultTableModel = (DefaultTableModel) jTableEntrada.getModel();
+        defaultTableModel.setNumRows(0);
+        int size = produtos.size();
+        
+        for (int i = 0; i < size; i++) {
+            com.dmz.stock.model.Fornecedor fornecedor = new FornecedorProdutoController().retornarFornecedorPorProduto(produtos.get(i).getId());
+            
+            defaultTableModel.addRow(new Object[]{
+                (i + 1),
+                produtos.get(i).getId(),
+                produtos.get(i).getNome(),
+                produtos.get(i).getDescricao(),
+                produtos.get(i).getCategoria(),
+                produtos.get(i).getDataEntrada(),
+                produtos.get(i).getDataValidade(),
+                produtos.get(i).getQuantidade(),
+                produtos.get(i).getQuantidadeMinima(),
+                produtos.get(i).getValorPorUnidade() + " MZN",
+                produtos.get(i).getValorTotal() + " MZN",
+                fornecedor.getNomeFornecedor(),
+                produtos.get(i).getCodigoBarras(),});
+        }
+        
+        double valor = 0;
+        for (int i = 0; i < jTableEntrada.getRowCount(); i++) {
+            valor += Double.parseDouble(jTableEntrada.getValueAt(i, 10).toString().replaceAll(" MZN", "").trim());
+        }
+        
+        lblEntradaPeriodo.setText(ConversorValores.currencyMozambique(valor).replaceAll("MZN", "").trim() + " MZN");
     }
 }

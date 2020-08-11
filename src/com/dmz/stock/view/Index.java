@@ -285,9 +285,9 @@ public class Index extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION);
 
         if (confirmacao == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(this,
-                    "Ops!.. Estamos em manutenção...",
-                    SystemMessage.SYSTEM_NAME, JOptionPane.WARNING_MESSAGE);
+            this.dispose();
+            RecuperacaoSenha rp = new RecuperacaoSenha(this, true);
+            rp.setVisible(true);
         }
     }//GEN-LAST:event_lblSenhaMouseClicked
 
@@ -379,7 +379,7 @@ public class Index extends javax.swing.JFrame {
             String pass = String.valueOf(txtPass.getPassword());
 
             if (!(user.isEmpty() || pass.isEmpty())) {
-                System.err.println("Index "+GeradorPassword.encrypt(pass));
+                System.err.println("Index " + GeradorPassword.encrypt(pass));
                 int idUser = new AutenticadorController().autenticacao(user, GeradorPassword.encrypt(pass));
 
                 if (idUser > 0) { //

@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author seraf
  */
 public class Dashboard extends javax.swing.JFrame {
-
+    
     private int positionX, positionY;
     private ProdutoController produtoController = new ProdutoController();
 
@@ -1062,7 +1062,7 @@ public class Dashboard extends javax.swing.JFrame {
                 "Pretende fechar o Sistema?",
                 SystemMessage.SYSTEM_NAME,
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
+            
             System.exit(0);
         }
     }//GEN-LAST:event_lblSairMouseClicked
@@ -1122,7 +1122,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_panel2MouseExited
 
     private void panel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel3MouseClicked
-        JOptionPane.showMessageDialog(jMenuFuncionario, "OK Painel 3");
+        new Configuracoes(this, rootPaneCheckingEnabled).setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_panel3MouseClicked
 
     private void panel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel3MouseEntered
@@ -1134,7 +1134,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_panel3MouseExited
 
     private void panel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel4MouseClicked
-        JOptionPane.showMessageDialog(jMenuFuncionario, "OK Painel 4");
+        new Ajuda(this, rootPaneCheckingEnabled).setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_panel4MouseClicked
 
     private void panel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel4MouseEntered
@@ -1199,7 +1199,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-       prencherLabel();
+        prencherLabel();
         preencherTabela(produtoController.retornarTodosProdutos());
     }//GEN-LAST:event_jLabel5MouseClicked
 
@@ -1344,14 +1344,14 @@ public class Dashboard extends javax.swing.JFrame {
                 fornecedor.getNomeFornecedor()
             });
         }
-
+        
     }
-
+    
     private void prencherLabel() {
         int entradaOntem = produtoController.retornarProdutoPelaDataEntrada(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now().minusDays(1))).size();
         int entradaHoje = produtoController.retornarProdutoPelaDataEntrada(ConversorDateTime.localDateTimeToUtilDate(LocalDateTime.now())).size();
         int entradaMes = produtoController.retornarProdutoPeloMesEntrada(LocalDate.now().getMonthValue()).size();
-
+        
         lblEntradaOntem.setText(String.valueOf(entradaOntem));
         lblEntradaHoje.setText(String.valueOf(entradaHoje));
         lblEntradaMes.setText(String.valueOf(entradaMes));

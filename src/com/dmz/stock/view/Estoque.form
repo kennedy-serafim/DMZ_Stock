@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="radioGroup">
     </Component>
@@ -87,7 +87,7 @@
                       <EmptySpace pref="182" max="32767" attributes="0"/>
                       <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblEntradaPeriodo1" min="-2" pref="166" max="-2" attributes="0"/>
+                      <Component id="lblValorEstoque" min="-2" pref="166" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="imprimirEntrada" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -105,7 +105,7 @@
                           <Component id="lblEntradaPeriodo" alignment="3" max="32767" attributes="0"/>
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="imprimirEntrada" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblEntradaPeriodo1" alignment="3" max="32767" attributes="0"/>
+                          <Component id="lblValorEstoque" alignment="3" max="32767" attributes="0"/>
                           <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -482,6 +482,9 @@
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIdProdutoEntradaKeyReleased"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtNomeProdutoEntrada">
                   <Properties>
@@ -489,6 +492,9 @@
                       <Font name="Trebuchet MS" size="18" style="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNomeProdutoEntradaKeyReleased"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel34">
                   <Properties>
@@ -520,6 +526,9 @@
                       <Color id="Hand Cursor"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox1ActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="jCheckBox2">
                   <Properties>
@@ -540,6 +549,9 @@
                       <Color id="Hand Cursor"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox2ActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -625,7 +637,8 @@
                                   <Font name="Trebuchet MS" size="16" style="0"/>
                                 </Property>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="11" rowCount="0">
+                                  <Table columnCount="13" rowCount="0">
+                                    <Column editable="false" title="#" type="java.lang.Object"/>
                                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                                     <Column editable="false" title="Nome do Produto" type="java.lang.Object"/>
                                     <Column editable="false" title="Descri&#xe7;&#xe3;o do Produto" type="java.lang.Object"/>
@@ -636,11 +649,22 @@
                                     <Column editable="false" title="Quantidade m&#xed;nima" type="java.lang.Object"/>
                                     <Column editable="false" title="Pre&#xe7;o por unidade" type="java.lang.Object"/>
                                     <Column editable="false" title="Valor total" type="java.lang.Object"/>
-                                    <Column editable="false" title="Por" type="java.lang.Object"/>
+                                    <Column editable="false" title="Fornecedor" type="java.lang.Object"/>
+                                    <Column editable="false" title="C&#xf3;digo de Barras" type="java.lang.Object"/>
                                   </Table>
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                                   <TableColumnModel selectionModel="0">
+                                    <Column maxWidth="50" minWidth="50" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
                                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                       <Title/>
                                       <Editor/>
@@ -744,7 +768,7 @@
                 <Property name="text" type="java.lang.String" value="Valor em Estoque:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblEntradaPeriodo1">
+            <Component class="javax.swing.JLabel" name="lblValorEstoque">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="16" style="0"/>
